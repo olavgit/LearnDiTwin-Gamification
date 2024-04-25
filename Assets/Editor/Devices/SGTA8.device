@@ -1,0 +1,126 @@
+{
+    "friendlyName": "Samsung Galaxy Tab A8",
+    "version": 1,
+    "screens": [
+        {
+            "width": 1920,
+            "height": 1200,
+            "navigationBarHeight": 0,
+            "dpi": 216.0,
+            "orientations": [
+                {
+                    "orientation": 1,
+                    "safeArea": {
+                        "serializedVersion": "2",
+                        "x": 0.0,
+                        "y": 0.0,
+                        "width": 1920.0,
+                        "height": 1200.0
+                    },
+                    "cutouts": []
+                },
+                {
+                    "orientation": 3,
+                    "safeArea": {
+                        "serializedVersion": "2",
+                        "x": 0.0,
+                        "y": 0.0,
+                        "width": 1200.0,
+                        "height": 1920.0
+                    },
+                    "cutouts": []
+                }
+            ],
+            "presentation": {
+                "overlayPath": "Samsung Galaxy A8_overlay.png",
+                "borderSize": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0,
+                    "w": 0.0
+                }
+            }
+        }
+    ],
+    "systemInfo": {
+        "deviceModel": "SM-X200",
+        "deviceType": 2,
+        "operatingSystem": "Android 11",
+        "operatingSystemFamily": 1,
+        "processorCount": 8,
+        "processorFrequency": 2000,
+        "processorType": "Unisoc Tiger T618",
+        "supportsAccelerometer": true,
+        "supportsAudio": true,
+        "supportsGyroscope": true,
+        "supportsLocationService": true,
+        "supportsVibration": false,
+        "systemMemorySize": 3072,
+        "unsupportedIdentifier": "n/a",
+        "graphicsDependentData": [
+            {
+                "graphicsDeviceType": 0,
+                "graphicsMemorySize": 0,
+                "graphicsDeviceName": "Mali G52 MP2",
+                "graphicsDeviceVendor": "ARM",
+                "graphicsDeviceID": 0,
+                "graphicsDeviceVendorID": 0,
+                "graphicsUVStartsAtTop": true,
+                "graphicsDeviceVersion": "OpenGL ES 3.2",
+                "graphicsShaderLevel": 0,
+                "graphicsMultiThreaded": false,
+                "renderingThreadingMode": 0,
+                "hasHiddenSurfaceRemovalOnGPU": false,
+                "hasDynamicUniformArrayIndexingInFragmentShaders": false,
+                "supportsShadows": true,
+                "supportsRawShadowDepthSampling": false,
+                "supportsMotionVectors": false,
+                "supports3DTextures": true,
+                "supports2DArrayTextures": true,
+                "supports3DRenderTextures": true,
+                "supportsCubemapArrayTextures": false,
+                "copyTextureSupport": 0,
+                "supportsComputeShaders": false,
+                "supportsGeometryShaders": false,
+                "supportsTessellationShaders": false,
+                "supportsInstancing": true,
+                "supportsHardwareQuadTopology": false,
+                "supports32bitsIndexBuffer": true,
+                "supportsSparseTextures": false,
+                "supportedRenderTargetCount": 4,
+                "supportsSeparatedRenderTargetsBlend": false,
+                "supportedRandomWriteTargetCount": 1,
+                "supportsMultisampledTextures": 0,
+                "supportsMultisampleAutoResolve": false,
+                "supportsTextureWrapMirrorOnce": 0,
+                "usesReversedZBuffer": false,
+                "npotSupport": 2,
+                "maxTextureSize": 8192,
+                "maxCubemapSize": 8192,
+                "maxComputeBufferInputsVertex": 0,
+                "maxComputeBufferInputsFragment": 0,
+                "maxComputeBufferInputsGeometry": 0,
+                "maxComputeBufferInputsDomain": 0,
+                "maxComputeBufferInputsHull": 0,
+                "maxComputeBufferInputsCompute": 0,
+                "maxComputeWorkGroupSize": 0,
+                "maxComputeWorkGroupSizeX": 0,
+                "maxComputeWorkGroupSizeY": 0,
+                "maxComputeWorkGroupSizeZ": 0,
+                "supportsAsyncCompute": false,
+                "supportsGraphicsFence": false,
+                "supportsAsyncGPUReadback": false,
+                "supportsRayTracing": false,
+                "supportsSetConstantBuffer": false,
+                "minConstantBufferOffsetAlignment": false,
+                "hasMipMaxLevel": false,
+                "supportsMipStreaming": false,
+                "usesLoadStoreActions": false,
+                "supportedTextureFormats": [],
+                "supportedRenderTextureFormats": [],
+                "ldrGraphicsFormat": 0,
+                "hdrGraphicsFormat": 0
+            }
+        ]
+    }
+}
