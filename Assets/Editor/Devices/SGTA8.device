@@ -7,37 +7,13 @@
             "height": 1200,
             "navigationBarHeight": 0,
             "dpi": 216.0,
-            "orientations": [
-                {
-                    "orientation": 1,
-                    "safeArea": {
-                        "serializedVersion": "2",
-                        "x": 0.0,
-                        "y": 0.0,
-                        "width": 1920.0,
-                        "height": 1200.0
-                    },
-                    "cutouts": []
-                },
-                {
-                    "orientation": 3,
-                    "safeArea": {
-                        "serializedVersion": "2",
-                        "x": 0.0,
-                        "y": 0.0,
-                        "width": 1200.0,
-                        "height": 1920.0
-                    },
-                    "cutouts": []
-                }
-            ],
             "presentation": {
                 "overlayPath": "Samsung Galaxy A8_overlay.png",
                 "borderSize": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0,
-                    "w": 0.0
+                    "x": 38,
+                    "y": 37,
+                    "z": 38,
+                    "w": 37
                 }
             }
         }

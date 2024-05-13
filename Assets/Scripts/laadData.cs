@@ -1,14 +1,13 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class laadData : MonoBehaviour
 {
+    public List<Maatregel> maatregelen = new List<Maatregel>();
+    public Budget budget;
     void Start()
-    {
-        Debug.Log("Loading data...");
-        
+    {        
         TextAsset data = Resources.Load<TextAsset>("testLogica");
         string[] text = data.text.Split(new char[] { '\n' });
 
@@ -23,16 +22,19 @@ public class laadData : MonoBehaviour
             {
                 try
                 {
-                    Maatregel maatregel = new Maatregel();
-                    maatregel.naam = line[1];
-                    maatregel.minimaal = int.Parse(line[2]);
-                    maatregel.maximaal = int.Parse(line[3]);
-                    maatregel.effectPerWeek = int.Parse(line[4]);
-                    maatregel.kostenPerWeek = int.Parse(line[5]);
-                    maatregel.geholpenUurPerWeek = int.Parse(line[6]);
-                    maatregel.hulpDuurInWeken = int.Parse(line[7]);
-                    maatregel.rondesPerJaar = int.Parse(line[8]);
-                    maatregel.kostenPerPersoonPer3Maanden = int.Parse(line[9]);
+                    Maatregel maatregel = new Maatregel
+                    {
+                        naam = line[1],
+                        minimaal = int.Parse(line[2]),
+                        maximaal = int.Parse(line[3]),
+                        effectPerWeek = int.Parse(line[4]),
+                        kostenPerWeek = int.Parse(line[5]),
+                        geholpenUurPerWeek = int.Parse(line[6]),
+                        hulpDuurInWeken = int.Parse(line[7]),
+                        rondesPerJaar = int.Parse(line[8]),
+                        kostenPerPersoonPer3Maanden = int.Parse(line[9])
+                    };
+                    maatregelen.Add(maatregel);
                 }
                 catch (FormatException)
                 {
@@ -43,7 +45,7 @@ public class laadData : MonoBehaviour
             {
                 try
                 {
-                    Budget budget = new Budget();
+                    budget = new Budget();
                     budget.budget = int.Parse(line[3]);
                 }
                 catch (FormatException)
