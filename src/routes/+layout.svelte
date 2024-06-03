@@ -2,4 +2,6 @@
 	import '../app.css';
 </script>
 
-<slot />
+<div class="main min-h-screen bg-cover" style="background-image: url('../cork.jpeg');">
+	<slot />
+</div>
