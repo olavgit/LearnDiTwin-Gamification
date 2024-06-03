@@ -32,7 +32,7 @@
 							value={v}
 							min="0"
 							max="10"
-							class="appearance-none w-full cursor-pointer accent-green-500 bg-black h-0.5"
+							class="slider align-middle appearance-none w-full cursor-pointer h-0.5"
 							on:input={(e) => onInput(e, valueIndex)}
 						/></td
 					>
@@ -43,3 +43,31 @@
 		</tbody>
 	</table>
 </div>
+
+<style lang="postcss">
+	.slider {
+		background: url('../line.png');
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	.slider::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		appearance: none;
+		width: 16px;
+		height: 16px;
+		border: 0;
+		background: url('../circle.png');
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	.slider::-moz-range-thumb {
+		width: 16px;
+		height: 16px;
+		border: 0;
+		background: url('../circle.png');
+	}
+</style>
