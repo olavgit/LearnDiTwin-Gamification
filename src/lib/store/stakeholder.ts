@@ -6,7 +6,7 @@ interface Stakeholder {
 }
 
 const stakeholders: Stakeholder[] = [
-	{ name: 'Gemeente', values: [4, 0, 0, 0] },
+	{ name: 'Gemeente', values: [0, 0, 0, 0] },
 	{ name: 'Vrijwilligers', values: [0, 0, 0, 0] },
 	{ name: 'Provincie', values: [0, 0, 0, 0] },
 	{ name: 'Studenten', values: [0, 0, 0, 0] }

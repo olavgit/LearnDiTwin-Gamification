@@ -1,4 +1,5 @@
 <script lang="ts" context="module">
+	import ResultCard from '$molecules/resultCard.svelte';
 	import UserCard from '$molecules/userCard.svelte';
 	import { stakeholderStore } from '$store/stakeholder';
 </script>
@@ -7,4 +8,5 @@
 	{#each $stakeholderStore as s, stakeholderIndex}
 		<UserCard {...s} {stakeholderIndex} />
 	{/each}
+	<ResultCard />
 </div>
