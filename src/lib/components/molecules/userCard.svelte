@@ -1,6 +1,9 @@
 <script lang="ts" context="module">
 	import { stakeholderStore } from '$store/stakeholder';
+	import { collection, doc, runTransaction, addDoc } from "firebase/firestore";
+	import {db} from "/src/firebase";
 </script>
+
 
 <script lang="ts">
 	export let name: string;
@@ -11,6 +14,20 @@
 		const target = event.target as HTMLInputElement;
 		$stakeholderStore[stakeholderIndex].values[valueIndex] = target.valueAsNumber;
 	};
+
+	async function onUserSubmit() {
+		console.log("aaaaaaaaaaaaaaaaaaaaaaa")
+		try {
+			const docRef = await addDoc(collection(db, "inputs"), {
+				stakeholderIndex: stakeholderIndex,
+				values: values,
+				name: name
+			});
+			console.log("Document written with ID: ", docRef.id);
+		} catch (e) {
+			console.error("Error adding document: ", e);
+		}
+	}
 </script>
 
 <div class="p-10 bg-yellow-100 shadow-lg flex flex-col">
@@ -42,6 +59,7 @@
 			{/each}
 		</tbody>
 	</table>
+	<button on:click={onUserSubmit}>Indienen</button>
 </div>
 
 <style lang="postcss">
@@ -69,5 +87,11 @@
 		height: 16px;
 		border: 0;
 		background: url('../circle.png');
+	}
+	button {
+		background-color: #d70a12;
+		width: fit-content;
+		padding: 5px;
+		color: white;
 	}
 </style>
