@@ -1,4 +1,7 @@
 <script lang="ts" context="module">
+	import ButtonMain from '$atoms/buttons/ButtonMain.svelte';
+
+	import { appState } from '$store/app';
 	import { stakeholderStore } from '$store/stakeholder';
 </script>
 
@@ -27,8 +30,16 @@
 	<div class="font-bold text-2xl mb-4">Resultaat</div>
 	{#each averages as average, index}
 		<div>
-			<span>Maatregel {index + 1}</span>
+			<span>Maatregel {index + 1} heeft een gemiddelde schaal van</span>
 			{average}
 		</div>
 	{/each}
+	<div>
+		<ButtonMain
+			theme="red"
+			on:click={() => {
+				appState.set('splash');
+			}}>Terug</ButtonMain
+		>
+	</div>
 </div>

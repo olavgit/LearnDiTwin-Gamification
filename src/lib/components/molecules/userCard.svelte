@@ -1,20 +1,23 @@
 <script lang="ts" context="module">
-	import { stakeholderStore } from '$store/stakeholder';
+	import ButtonMain from '$atoms/buttons/ButtonMain.svelte';
+
+	import { appState } from '$store/app';
+	import { stakeholderStore, activeStakeholder } from '$store/stakeholder';
 </script>
 
 <script lang="ts">
-	export let name: string;
-	export let values: number[];
-	export let stakeholderIndex: number;
+	const activeIndex = $stakeholderStore.indexOf($activeStakeholder!);
 
-	const onInput = (event: Event, valueIndex: number) => {
+	const onInput = (event: Event, index: number) => {
 		const target = event.target as HTMLInputElement;
-		$stakeholderStore[stakeholderIndex].values[valueIndex] = target.valueAsNumber;
+		active.values[index] = target.valueAsNumber;
 	};
+
+	$: active = $stakeholderStore[activeIndex];
 </script>
 
 <div class="p-10 bg-yellow-100 shadow-lg flex flex-col">
-	<div class="font-bold text-2xl mb-4">{name}, {stakeholderIndex}</div>
+	<div class="font-bold text-2xl mb-4">{active.name}</div>
 	<table class="text-left">
 		<thead>
 			<tr>
@@ -24,7 +27,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each values as v, valueIndex}
+			{#each active.values as v, i}
 				<tr>
 					<td
 						><input
@@ -32,8 +35,8 @@
 							value={v}
 							min="0"
 							max="10"
-							class="slider align-middle appearance-none w-full cursor-pointer h-0.5"
-							on:input={(e) => onInput(e, valueIndex)}
+							class="slider accent-blue-500 align-middle appearance-none w-full cursor-pointer h-1 bg-red-500"
+							on:input={(e) => onInput(e, i)}
 						/></td
 					>
 					<td>{v * 1000}</td>
@@ -42,32 +45,18 @@
 			{/each}
 		</tbody>
 	</table>
+
+	<div class="flex gap-x-2">
+		<ButtonMain
+			theme="red"
+			on:click={() => {
+				appState.set('splash');
+			}}>Terug</ButtonMain
+		>
+		<ButtonMain
+			on:click={() => {
+				appState.set('result');
+			}}>Klaar</ButtonMain
+		>
+	</div>
 </div>
-
-<style lang="postcss">
-	.slider {
-		background: url('../line.png');
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;
-	}
-
-	.slider::-webkit-slider-thumb {
-		-webkit-appearance: none;
-		appearance: none;
-		width: 16px;
-		height: 16px;
-		border: 0;
-		background: url('../circle.png');
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;
-	}
-
-	.slider::-moz-range-thumb {
-		width: 16px;
-		height: 16px;
-		border: 0;
-		background: url('../circle.png');
-	}
-</style>
