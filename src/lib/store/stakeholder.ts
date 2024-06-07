@@ -13,3 +13,4 @@ const stakeholders: Stakeholder[] = [
 ];
 
 export const stakeholderStore = writable<Stakeholder[]>(stakeholders);
+export const activeStakeholder = writable<Stakeholder | null>(null);
