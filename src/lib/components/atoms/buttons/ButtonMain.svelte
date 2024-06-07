@@ -19,6 +19,6 @@
 	]);
 </script>
 
-<ButtonBase class="button-main px-5 rounded-md py-3 {classes}" {href} {target}>
+<ButtonBase class="button-main px-5 rounded-md py-3 {classes}" {href} {target} on:click>
 	<slot />
 </ButtonBase>
