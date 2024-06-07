@@ -24,6 +24,7 @@ You can preview the production build with `npm run preview`.
 To deploy a production version on github pages:
 
 ```bash
+npm run build
 npm run deploy
 ```
 
