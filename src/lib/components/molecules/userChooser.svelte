@@ -15,7 +15,7 @@
 					appState.set('selected');
 				}}
 			>
-				{s.name}
+				{s.id}
 			</ButtonMain>
 		{/each}
 	</div>

@@ -18,9 +18,8 @@
 
 	async function updateFirestore() {
 		try {
-			const stakeholderId = active.name;
+			const stakeholderId = active.id;
 			const stakeholderRef = doc(db, 'stakeholders', stakeholderId);
-
 			const docSnapshot = await getDoc(stakeholderRef);
 
 			if (docSnapshot.exists()) {
@@ -42,7 +41,7 @@
 </script>
 
 <div class="p-10 bg-yellow-100 shadow-lg flex flex-col">
-	<div class="font-bold text-2xl mb-4">{active.name}</div>
+	<div class="font-bold text-2xl mb-4">{active.id}</div>
 	<table class="text-left">
 		<thead>
 			<tr>
