@@ -16,7 +16,7 @@
 		updateFirestore();
 	};
 
-	async function updateFirestore() {
+	const updateFirestore = async () => {
 		try {
 			const stakeholderId = active.id;
 			const stakeholderRef = doc(db, 'stakeholders', stakeholderId);
@@ -35,7 +35,7 @@
 		} catch (error) {
 			console.error('Error updating document: ', error);
 		}
-	}
+	};
 
 	$: active = $stakeholderStore[activeIndex];
 </script>

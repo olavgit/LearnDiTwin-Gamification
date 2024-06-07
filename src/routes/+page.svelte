@@ -6,14 +6,15 @@
 	import { stakeholderStore } from '$store/stakeholder';
 
 	import { appState } from '$store/app';
-	import { getDocs, collection } from 'firebase/firestore';
+	import { getDocs, collection, onSnapshot } from 'firebase/firestore';
 	import { onMount } from 'svelte';
 </script>
 
 <script lang="ts">
-	async function fetchFirestore() {
+	const stakeholdersCollection = collection(db, 'stakeholders');
+
+	const fetchFirestore = async () => {
 		try {
-			const stakeholdersCollection = collection(db, 'stakeholders');
 			const snapshot = await getDocs(stakeholdersCollection);
 			const stakeholdersData = snapshot.docs.map((doc) => ({
 				id: doc.id,
@@ -23,10 +24,26 @@
 		} catch (error) {
 			console.error('Error fetching document: ', error);
 		}
-	}
+	};
+
+	const subscribeToFirestore = () =>
+		onSnapshot(
+			stakeholdersCollection,
+			(docSnapshot) => {
+				const stakeholdersData = docSnapshot.docs.map((doc) => ({
+					id: doc.id,
+					values: doc.data().values
+				}));
+				stakeholderStore.set(stakeholdersData);
+			},
+			(err) => {
+				console.log(`Encountered error: ${err}`);
+			}
+		);
 
 	onMount(() => {
 		fetchFirestore();
+		subscribeToFirestore();
 	});
 </script>
 
