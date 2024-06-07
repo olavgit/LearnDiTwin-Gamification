@@ -3,6 +3,8 @@
 
 	import { appState } from '$store/app';
 	import { stakeholderStore, activeStakeholder } from '$store/stakeholder';
+	import { db } from '$lib/firebase';
+	import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 </script>
 
 <script lang="ts">
@@ -11,7 +13,30 @@
 	const onInput = (event: Event, index: number) => {
 		const target = event.target as HTMLInputElement;
 		active.values[index] = target.valueAsNumber;
+		updateFirestore();
 	};
+
+	async function updateFirestore() {
+		try {
+			const stakeholderId = active.name;
+			const stakeholderRef = doc(db, 'stakeholders', stakeholderId);
+
+			const docSnapshot = await getDoc(stakeholderRef);
+
+			if (docSnapshot.exists()) {
+				await updateDoc(stakeholderRef, {
+					values: active.values
+				});
+			} else {
+				await setDoc(stakeholderRef, {
+					values: active.values
+				});
+			}
+			console.log('Document successfully updated!');
+		} catch (error) {
+			console.error('Error updating document: ', error);
+		}
+	}
 
 	$: active = $stakeholderStore[activeIndex];
 </script>
