@@ -5,7 +5,7 @@
 	import { appState } from '$store/app';
 </script>
 
-<div class="grid grid-cols-2 gap-4">
+<div class="h-screen w-full flex justify-center items-center">
 	{#if $appState === 'splash'}
 		<UserChooser />
 	{/if}
