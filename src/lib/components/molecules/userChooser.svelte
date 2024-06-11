@@ -5,10 +5,38 @@
 	import { activeStakeholder, stakeholderStore } from '$store/stakeholder';
 </script>
 
+<script>
+	import { onMount } from 'svelte';
+	import { writable } from 'svelte/store';
+
+	const loadingError = writable(false);
+	const TIMEOUT = 5000; // Timeout duration in milliseconds
+
+	onMount(() => {
+		const timeout = setTimeout(() => {
+			loadingError.set(true);
+		}, TIMEOUT);
+
+		// Clear the timeout if stakeholders load successfully
+		const unsubscribe = stakeholderStore.subscribe(value => {
+			if (value.length > 0) {
+				clearTimeout(timeout);
+			}
+		});
+
+		return () => {
+			clearTimeout(timeout);
+			unsubscribe();
+		};
+	});
+</script>
+
 <div class="p-10 bg-yellow-100 shadow-lg flex flex-col">
 	<div class="font-bold text-2xl mb-4">Kies je stakeholder</div>
 	<div class="flex gap-x-2">
-		{#if $stakeholderStore.length === 0}
+		{#if $loadingError}
+			<div class="text-red-500">Er is iets misgegaan bij het ophalen van de data. <a href="/upload">upload een excel bestand</a> en probeer het opnieuw.</div>
+		{:else if $stakeholderStore.length === 0}
 			<div role="status">
 				<svg
 					aria-hidden="true"
@@ -41,3 +69,10 @@
 		{/each}
 	</div>
 </div>
+
+<style>
+	a{
+		color: blue;
+		text-decoration: underline;
+	}
+</style>
