@@ -1,13 +1,13 @@
 <script lang="ts" context="module">
 	import { db } from '$lib/firebase';
 	import ResultCard from '$molecules/resultCard.svelte';
-	import UserCard from '$molecules/userCard.svelte';
 	import UserChooser from '$molecules/userChooser.svelte';
 	import { stakeholderStore } from '$store/stakeholder';
 
 	import { appState } from '$store/app';
 	import { getDocs, collection, onSnapshot } from 'firebase/firestore';
 	import { onMount } from 'svelte';
+	import Selected from '$organisms/Selected.svelte';
 </script>
 
 <script lang="ts">
@@ -52,7 +52,7 @@
 		<UserChooser />
 	{/if}
 	{#if $appState === 'selected'}
-		<UserCard />
+		<Selected />
 	{/if}
 	{#if $appState === 'result'}
 		<ResultCard />
