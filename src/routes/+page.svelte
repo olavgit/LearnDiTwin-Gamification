@@ -82,7 +82,7 @@
 
 <style lang="postcss">
 	.module-page {
-		background-image: url('/cork.jpg');
+		background-image: url('./src/lib/assets/images/cork.jpg');
 		background-position: center;
 		background-size: contain;
 		background-repeat: repeat;
