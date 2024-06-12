@@ -1,14 +1,47 @@
 <script lang="ts" context="module">
+	import { onMount } from 'svelte';
+	import { writable } from 'svelte/store';
+
 	import ButtonMain from '$atoms/buttons/ButtonMain.svelte';
 
 	import { appState } from '$store/app';
 	import { activeStakeholder, stakeholderStore } from '$store/stakeholder';
 </script>
 
+<script>
+	const loadingError = writable(false);
+	const TIMEOUT = 5000; // Timeout duration in milliseconds
+
+	onMount(() => {
+		const timeout = setTimeout(() => {
+			loadingError.set(true);
+		}, TIMEOUT);
+
+		// Clear the timeout if stakeholders load successfully
+		const unsubscribe = stakeholderStore.subscribe((value) => {
+			if (value.length > 0) {
+				clearTimeout(timeout);
+			}
+		});
+
+		return () => {
+			clearTimeout(timeout);
+			unsubscribe();
+		};
+	});
+</script>
+
 <div class="p-10 bg-yellow-100 shadow-lg flex flex-col">
 	<div class="font-bold text-2xl mb-4">Kies je stakeholder</div>
 	<div class="flex gap-x-2">
-		{#if $stakeholderStore.length === 0}
+		{#if $loadingError}
+			<div class="text-red-500">
+				Er is iets misgegaan bij het ophalen van de data. <a
+					class="text-blue-500 underline"
+					href="/upload">upload een excel bestand</a
+				> en probeer het opnieuw.
+			</div>
+		{:else if $stakeholderStore.length === 0}
 			<div role="status">
 				<svg
 					aria-hidden="true"
@@ -33,7 +66,7 @@
 			<ButtonMain
 				on:click={() => {
 					activeStakeholder.set(s);
-					appState.set('selected');
+					appState.set(1);
 				}}
 			>
 				{s.id}

@@ -37,6 +37,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"firebase": "^10.12.2"
+		"firebase": "^10.12.2",
+		"gsap": "^3.12.5"
 	}
 }

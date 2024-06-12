@@ -1,17 +1,32 @@
 <script lang="ts" context="module">
+	import gsap from 'gsap';
+	import { onMount } from 'svelte';
+
 	import { db } from '$lib/firebase';
+	import { getDocs, collection, onSnapshot } from 'firebase/firestore';
+
+	import StakeholderChooser from '$molecules/stakeholderChooser.svelte';
+	import StakeholderInfoCard from '$molecules/stakeholderInfoCard.svelte';
+	import StakeholderInputCard from '$molecules/stakeholderInputCard.svelte';
 	import ResultCard from '$molecules/resultCard.svelte';
-	import UserCard from '$molecules/userCard.svelte';
-	import UserChooser from '$molecules/userChooser.svelte';
-	import { stakeholderStore } from '$store/stakeholder';
 
 	import { appState } from '$store/app';
-	import { getDocs, collection, onSnapshot } from 'firebase/firestore';
-	import { onMount } from 'svelte';
+	import { stakeholderStore } from '$store/stakeholder';
 </script>
 
 <script lang="ts">
 	const stakeholdersCollection = collection(db, 'stakeholders');
+	let rootElement: HTMLDivElement;
+
+	const animateGsap = (number: number) => {
+		const xPercentValue = (-100 / rootElement.children.length) * number;
+
+		gsap.to(rootElement, {
+			xPercent: xPercentValue,
+			duration: 1,
+			ease: 'power2.inOut'
+		});
+	};
 
 	const fetchFirestore = async () => {
 		try {
@@ -45,16 +60,31 @@
 		fetchFirestore();
 		subscribeToFirestore();
 	});
+
+	// every time appState changes, animate the rootElement
+	$: rootElement && animateGsap($appState);
 </script>
 
-<div class="h-screen w-full flex justify-center items-center">
-	{#if $appState === 'splash'}
-		<UserChooser />
-	{/if}
-	{#if $appState === 'selected'}
-		<UserCard />
-	{/if}
-	{#if $appState === 'result'}
+<div class="module-page flex" bind:this={rootElement}>
+	<div class="h-screen flex justify-center items-center w-screen">
+		<StakeholderChooser />
+	</div>
+	<div class="h-screen flex justify-center items-center w-screen">
+		<StakeholderInfoCard />
+	</div>
+	<div class="h-screen flex justify-center items-center w-screen">
+		<StakeholderInputCard />
+	</div>
+	<div class="h-screen flex justify-center items-center w-screen">
 		<ResultCard />
-	{/if}
+	</div>
 </div>
+
+<style lang="postcss">
+	.module-page {
+		background-image: url('/cork.jpg');
+		background-position: center;
+		background-size: contain;
+		background-repeat: repeat;
+	}
+</style>
