@@ -38,7 +38,7 @@
 		<ButtonMain
 			theme="red"
 			on:click={() => {
-				appState.set('splash');
+				appState.set(0);
 			}}>Terug</ButtonMain
 		>
 	</div>

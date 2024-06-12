@@ -1,16 +1,12 @@
 <script lang="ts" context="module">
-	import UserCard from '$molecules/userCard.svelte';
-	import { activeStakeholder } from '$store/stakeholder';
-	import Card from '$molecules/Card.svelte';
 	import ButtonMain from '$atoms/buttons/ButtonMain.svelte';
+	import Card from '$atoms/Card.svelte';
+
 	import { appState } from '$store/app';
+	import { activeStakeholder } from '$store/stakeholder';
 </script>
 
-<script lang="ts">
-	let activeSlide = 0;
-</script>
-
-{#if $activeStakeholder && activeSlide === 0}
+{#if $activeStakeholder}
 	<Card>
 		<h2 class="font-bold text-2xl">{$activeStakeholder.id}</h2>
 		<p>
@@ -25,17 +21,14 @@
 			<ButtonMain
 				theme="red"
 				on:click={() => {
-					appState.set('splash');
+					appState.set(0);
 				}}>Terug</ButtonMain
 			>
 			<ButtonMain
 				on:click={() => {
-					activeSlide = 1;
+					appState.set(2);
 				}}>Klaar</ButtonMain
 			>
 		</div>
 	</Card>
-{/if}
-{#if activeSlide === 1}
-	<UserCard />
 {/if}
