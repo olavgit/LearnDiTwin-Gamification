@@ -2,6 +2,6 @@
 	import '../app.css';
 </script>
 
-<div class="main min-h-screen flex">
+<div class="main overflow-clip min-h-screen flex">
 	<slot />
 </div>
