@@ -1,4 +1,7 @@
 <script lang="ts">
+    import { doc, collection, getDocs, deleteDoc, setDoc, updateDoc, writeBatch } from 'firebase/firestore';
+    import { db } from '$lib/firebase';
+
     let selectedFile: File | null = null;
     let fileInput: HTMLInputElement;
     let maatregelen: Array<Record<string, string>> = [];
@@ -11,8 +14,11 @@
             return;
         }
 
+        const fileExtension = file.name.split('.').pop()?.toLowerCase();
         const fileType = file.type;
-        if (fileType !== 'text/csv') {
+        const validMimeTypes = ['text/csv', 'application/vnd.ms-excel'];
+        
+        if (!validMimeTypes.includes(fileType) || fileExtension !== 'csv') {
             alert('Ongeldig of niet-ondersteund bestandstype. Upload een CSV-bestand.');
             target.value = '';
             return;
@@ -38,7 +44,7 @@
         reader.onload = function(e: ProgressEvent<FileReader>) {
             try {
                 const csv = e.target?.result as string;
-                const lines = csv.split('\n').filter(line => line.trim() !== '');
+                const lines = csv.split('\r').filter(line => line.trim() !== '');
                 if (lines.length < 2) {
                     alert('CSV bevat geen data.');
                     return;
@@ -49,7 +55,7 @@
                 const maximaalIndex = headers.indexOf('maximaal');
 
                 if (naamIndex === -1 || maximaalIndex === -1) {
-                    alert('CSV file does not contain required headers.');
+                    alert('CSV-bestand bevat niet de vereiste headers.');
                     return;
                 }
 
@@ -57,7 +63,7 @@
                 budget = null;
 
                 for (let i = 1; i < lines.length; i++) {
-                    const line = lines[i].split(';');
+                    const line = lines[i].split(';').map(field => field.trim().replace('/r', ''));
 
                     if (!line[naamIndex]) continue;
 
@@ -72,13 +78,13 @@
                     }
                 }
             } catch (error) {
-                alert('An error occurred while processing the file.');
+                alert('Er is een fout opgetreden tijdens het verwerken van het bestand.');
                 console.error(error);
             }
         };
 
         reader.onerror = function() {
-            alert('An error occurred while reading the file.');
+            alert('Er is een fout opgetreden tijdens het lezen van het bestand.');
         };
 
         reader.onloadend = function() {
@@ -90,42 +96,39 @@
         }
     }
 
-    function storeFile(){
-        localStorage.setItem('maatregelen', JSON.stringify(maatregelen));
-        localStorage.setItem('budget', JSON.stringify(budget));
+    const storeFile = async () => {
+        try {
+            const maatregelenIds = maatregelen.map(item => item.id);
+            const querySnapshot = await getDocs(collection(db, 'maatregelen'));
+
+            const batch = writeBatch(db);
+
+            querySnapshot.docs.forEach((doc) => {
+                if (!maatregelenIds.includes(doc.id)) {
+                    batch.delete(doc.ref);
+                }
+            });
+
+            maatregelen.forEach((item) => {
+                const docRef = doc(db, 'maatregelen', item.id);
+                batch.set(docRef, item, { merge: true });
+            });
+
+            await batch.commit();
+            console.log('Firestore updated successfully.');
+        } catch (error) {
+            alert('Er is een fout opgetreden bij het opslaan van het bestand in Firestore.');
+            console.error(error);
+        }
     }
 </script>
 
-<main>
-    <label for="file-upload" class="upload-label">Selecteer een bestand</label>
-    <input id="file-upload" class="file-upload" type="file" accept="text/csv" bind:this={fileInput} on:change={handleFileChange} />
+<div class="flex flex-col items-center justify-center h-screen drop-shadow-xl">
+    <input id="file-upload" class="hidden" type="file" accept="text/csv" bind:this={fileInput} on:change={handleFileChange} />
+    <label for="file-upload" class="px-4 py-2 m-2 shadow-lg text-white bg-red-600 cursor-pointer">Selecteer een bestand</label>
     {#if selectedFile}
-        <p>Geselecteerd Bestand:</p>
+        <p class="font-bold">Geselecteerd Bestand:</p>
         <pre>{selectedFile.name}</pre>
     {/if}
-    <button class="upload-button" on:click={handleImport}>Upload</button>
-</main>
-
-<style>
-    main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        font-family: 'Hk Grotesk', sans-serif;
-    }
-
-    input[type='file'] {
-        display: none;
-    }
-
-    .upload-button, .upload-label {
-        padding: 0.5rem 1rem;
-        margin: 0.5rem;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-        color: #fff;
-        background-color: #d70a12;
-        cursor: pointer;
-    }
-</style>
+    <button class="px-4 py-2 m-2 shadow-lg text-white bg-red-600 cursor-pointer" on:click={handleImport}>Upload</button>
+</div>

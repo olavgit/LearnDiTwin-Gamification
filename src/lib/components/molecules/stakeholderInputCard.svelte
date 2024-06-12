@@ -1,14 +1,45 @@
 <script lang="ts" context="module">
 	import { db } from '$lib/firebase';
-	import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+	import { collection, doc, getDoc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
+	import { onMount } from 'svelte';
+
 
 	import ButtonMain from '$atoms/buttons/ButtonMain.svelte';
 
 	import { appState } from '$store/app';
+	import { maatregelenStore } from '$store/maatregelen';
 	import { stakeholderStore, activeStakeholder } from '$store/stakeholder';
 </script>
 
 <script lang="ts">
+	onMount(async () => {
+		const maatregelenCollection = collection(db, 'maatregelen');
+		const maatregelenSnapshot = await getDocs(maatregelenCollection);
+
+		maatregelenStore.set(maatregelenSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Maatregelen[]);
+		maatregelenSnapshot.docs.forEach(doc => {
+			console.log(doc.data());
+		});
+	});
+
+	const calculateValue = (activeValue: number, maatregel: any) => {
+        return activeValue * maatregel.minimaal * maatregel.effectPerWeek * maatregel.rondesPerJaar;
+    };
+
+    const calculateCost = (activeValue: number, maatregel: any) => {
+        const cost = calculateValue(activeValue, maatregel) * (maatregel.kostenPerPersoonPerDrieMaanden);
+        return cost.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR' });
+    };
+
+	const calculateVrijwilligers = (activeValue: number, maatregel: any) => {
+		if (activeValue === 0) {
+			return 0;
+		} else {
+			const value = Number(maatregel.minimaal) + (activeValue - 1) * (Number(maatregel.maximaal) - Number(maatregel.minimaal)) / 9;
+			return Math.round(value * 100) / 100;
+		}
+	};
+
 	const onInput = (event: Event, index: number) => {
 		const target = event.target as HTMLInputElement;
 		active!.values[index] = target.valueAsNumber;
@@ -45,27 +76,30 @@
 		<table class="text-left">
 			<thead>
 				<tr>
-					<th>Schaal</th>
-					<th>Geholpen mensen</th>
-					<th>Kosten</th>
+					<th class="px-2">Naam</th>
+					<th class="px-2">Schaal</th>
+					<th class="px-2">Geholpen mensen</th>
+					<th class="px-2">Kosten</th>
+					<th class="px-2">Vrijwilligers</th>
 				</tr>
 			</thead>
 			<tbody>
-				{#each active.values as v, i}
-					<tr>
-						<td
-							><input
-								type="range"
-								value={v}
-								min="0"
-								max="10"
-								class="slider accent-blue-500 align-middle appearance-none w-full cursor-pointer h-1 bg-red-500"
-								on:input={(e) => onInput(e, i)}
-							/></td
-						>
-						<td>{v * 1000}</td>
-						<td>€{v * 50}</td>
-					</tr>
+				{#each $maatregelenStore as maatregel, i}
+				<tr>
+					<td class="px-2">{maatregel.naam.charAt(0).toUpperCase() + maatregel.naam.slice(1)}</td>
+					<td class="px-2">
+						<input
+							type="range"
+							value={active.values[i]}
+							min="0"
+							max="10"
+							class="slider accent-blue-500 align-middle appearance-none w-full cursor-pointer h-1 bg-red-500"
+							on:input={(e) => onInput(e, i)}
+						/>
+					</td>
+					<td class="px-2">{calculateValue(active.values[i], maatregel)}</td>
+					<td class="px-2">{calculateCost(active.values[i], maatregel)}</td>
+					<td class="px-2">{calculateVrijwilligers(active.values[i], maatregel)}</td>
 				{/each}
 			</tbody>
 		</table>
