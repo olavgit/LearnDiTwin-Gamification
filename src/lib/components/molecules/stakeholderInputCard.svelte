@@ -18,9 +18,6 @@
 		const maatregelenSnapshot = await getDocs(maatregelenCollection);
 
 		maatregelenStore.set(maatregelenSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Maatregelen[]);
-		maatregelenSnapshot.docs.forEach(doc => {
-			console.log(doc.data());
-		});
 	});
 
 	const calculateValue = (activeValue: number, maatregel: Maatregelen) => {
@@ -68,9 +65,11 @@
 	};
 
 	$: active = $stakeholderStore.find((stakeholder) => stakeholder.id === $activeStakeholder?.id);
-	$: totalValue = $maatregelenStore.reduce((sum, maatregel, i) => sum + calculateValue(active!.values[i], maatregel), 0);
-    $: totalCost = $maatregelenStore.reduce((sum, maatregel, i) => sum + calculateCost(active!.values[i], maatregel), 0);
-    $: totalVrijwilligers = $maatregelenStore.reduce((sum, maatregel, i) => sum + calculateVrijwilligers(active!.values[i], maatregel), 0);
+
+	$: totalValue = $maatregelenStore.reduce((sum, maatregel, i) => sum + calculateValue(active?.values?.[i] ?? 0, maatregel), 0);
+	$: totalCost = $maatregelenStore.reduce((sum, maatregel, i) => sum + calculateCost(active?.values?.[i] ?? 0, maatregel), 0);
+	$: totalVrijwilligers = $maatregelenStore.reduce((sum, maatregel, i) => sum + calculateVrijwilligers(active?.values?.[i] ?? 0, maatregel), 0);
+
 </script>
 
 {#if active}
@@ -119,12 +118,12 @@
 			<ButtonMain
 				theme="red"
 				on:click={() => {
-					appState.set(1);
+					appState.set(2);
 				}}>Terug</ButtonMain
 			>
 			<ButtonMain
 				on:click={() => {
-					appState.set(3);
+					appState.set(4);
 				}}>Klaar</ButtonMain
 			>
 		</div>
