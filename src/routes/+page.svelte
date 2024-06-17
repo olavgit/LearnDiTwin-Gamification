@@ -33,7 +33,8 @@
 			const snapshot = await getDocs(stakeholdersCollection);
 			const stakeholdersData = snapshot.docs.map((doc) => ({
 				id: doc.id,
-				values: doc.data().values
+				values: doc.data().values,
+				description: doc.data().description
 			}));
 			stakeholderStore.set(stakeholdersData);
 		} catch (error) {
@@ -47,7 +48,8 @@
 			(docSnapshot) => {
 				const stakeholdersData = docSnapshot.docs.map((doc) => ({
 					id: doc.id,
-					values: doc.data().values
+					values: doc.data().values,
+					description: doc.data().description
 				}));
 				stakeholderStore.set(stakeholdersData);
 			},
