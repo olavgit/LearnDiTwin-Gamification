@@ -100,7 +100,7 @@
 						/>
 					</td>
 					<td class="px-2">{calculateValue(active.values[i], maatregel)}</td>
-					<td class="px-2">{calculateCost(active.values[i], maatregel)}</td>
+					<td class="px-2">{calculateCost(active.values[i], maatregel).toLocaleString('nl-NL', { style: 'currency', currency: 'EUR',  minimumFractionDigits: 0, maximumFractionDigits: 0 })}</td>
 					<td class="px-2">{calculateVrijwilligers(active.values[i], maatregel)}</td>
 				</tr>
 				{/each}
@@ -108,7 +108,7 @@
                     <td class="px-2 py-1">Totaal</td>
                     <td class="px-2 py-1"></td>
                     <td class="px-2 py-1">{totalValue}</td>
-                    <td class="px-2 py-1">{totalCost.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR' })}</td>
+                    <td class="px-2 py-1">{totalCost.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR',  minimumFractionDigits: 0, maximumFractionDigits: 0 })}</td>
                     <td class="px-2 py-1">{totalVrijwilligers}</td>
                 </tr>
 			</tbody>
