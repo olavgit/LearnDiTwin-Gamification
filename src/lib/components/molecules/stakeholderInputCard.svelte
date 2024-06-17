@@ -112,12 +112,12 @@
 			<ButtonMain
 				theme="red"
 				on:click={() => {
-					appState.set(1);
+					appState.set(2);
 				}}>Terug</ButtonMain
 			>
 			<ButtonMain
 				on:click={() => {
-					appState.set(3);
+					appState.set(4);
 				}}>Klaar</ButtonMain
 			>
 		</div>

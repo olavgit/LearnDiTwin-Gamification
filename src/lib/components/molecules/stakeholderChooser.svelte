@@ -67,11 +67,19 @@
 			<ButtonMain
 				on:click={() => {
 					activeStakeholder.set(s);
-					appState.set(1);
+					appState.set(2);
 				}}
 			>
 				{s.id}
 			</ButtonMain>
 		{/each}
+		<ButtonMain
+			theme="red"
+			on:click={() => {
+				appState.set(0);
+			}}
+		>
+			Terug
+		</ButtonMain>
 	</div>
 </Card>

@@ -8,6 +8,7 @@
 	import StakeholderChooser from '$molecules/stakeholderChooser.svelte';
 	import StakeholderInfoCard from '$molecules/stakeholderInfoCard.svelte';
 	import StakeholderInputCard from '$molecules/stakeholderInputCard.svelte';
+	import StartCard from '$molecules/startCard.svelte';
 	import ResultCard from '$molecules/resultCard.svelte';
 
 	import { appState } from '$store/app';
@@ -66,6 +67,9 @@
 </script>
 
 <div class="module-page flex" bind:this={rootElement}>
+	<div class="h-screen flex justify-center items-center w-screen">
+		<StartCard />
+	</div>
 	<div class="h-screen flex justify-center items-center w-screen">
 		<StakeholderChooser />
 	</div>

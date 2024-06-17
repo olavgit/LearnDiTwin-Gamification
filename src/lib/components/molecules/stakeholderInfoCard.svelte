@@ -26,7 +26,7 @@
 			>
 			<ButtonMain
 				on:click={() => {
-					appState.set(2);
+					appState.set(3);
 				}}>Klaar</ButtonMain
 			>
 		</div>
