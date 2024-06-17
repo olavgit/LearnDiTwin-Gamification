@@ -108,7 +108,7 @@
 			</tbody>
 		</table>
 
-		<div class="flex gap-x-2">
+		<div class="flex gap-x-2 m-3">
 			<ButtonMain
 				theme="red"
 				on:click={() => {
