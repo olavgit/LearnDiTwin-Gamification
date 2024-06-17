@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-interface Maatregelen {
+export interface Maatregelen {
 	id: string;
     naam: string;
 	minimaal: number;
@@ -10,7 +10,7 @@ interface Maatregelen {
     geholpenUurPerWeek: number;
     hulpduurInWeken: number;
     rondesPerJaar: number;
-    kostenPerPersoonPer3Maanden: number;
+    kostenPerPersoonPerDrieMaanden: number;
 }
 
 export const maatregelenStore = writable<Maatregelen[]>([]);
