@@ -3,6 +3,7 @@
 	import { writable } from 'svelte/store';
 
 	import ButtonMain from '$atoms/buttons/ButtonMain.svelte';
+	import Card from '$atoms/Card.svelte';
 
 	import { appState } from '$store/app';
 	import { activeStakeholder, stakeholderStore } from '$store/stakeholder';
@@ -31,7 +32,7 @@
 	});
 </script>
 
-<div class="p-10 bg-yellow-100 shadow-lg flex flex-col">
+<Card>
 	<div class="font-bold text-2xl mb-4">Kies je stakeholder</div>
 	<div class="flex gap-x-2">
 		{#if $loadingError}
@@ -66,11 +67,19 @@
 			<ButtonMain
 				on:click={() => {
 					activeStakeholder.set(s);
-					appState.set(1);
+					appState.set(2);
 				}}
 			>
 				{s.id}
 			</ButtonMain>
 		{/each}
+		<ButtonMain
+			theme="red"
+			on:click={() => {
+				appState.set(0);
+			}}
+		>
+			Terug
+		</ButtonMain>
 	</div>
-</div>
+</Card>

@@ -9,10 +9,9 @@
 {#if $activeStakeholder}
 	<Card>
 		<h2 class="font-bold text-2xl">{$activeStakeholder.id}</h2>
-		<p>
+		<p class="lg:max-w-[400px]">
 			{$activeStakeholder.description}
 		</p>
-
 		<div class="flex gap-x-2">
 			<ButtonMain
 				theme="red"
@@ -22,7 +21,7 @@
 			>
 			<ButtonMain
 				on:click={() => {
-					appState.set(2);
+					appState.set(3);
 				}}>Klaar</ButtonMain
 			>
 		</div>

@@ -3,8 +3,8 @@
 	import { collection, doc, getDoc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
 	import { onMount } from 'svelte';
 
-
 	import ButtonMain from '$atoms/buttons/ButtonMain.svelte';
+	import Card from '$atoms/Card.svelte';
 
 	import { appState } from '$store/app';
 	import { maatregelenStore } from '$store/maatregelen';
@@ -16,26 +16,30 @@
 		const maatregelenCollection = collection(db, 'maatregelen');
 		const maatregelenSnapshot = await getDocs(maatregelenCollection);
 
-		maatregelenStore.set(maatregelenSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Maatregelen[]);
-		maatregelenSnapshot.docs.forEach(doc => {
+		maatregelenStore.set(
+			maatregelenSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as Maatregelen[]
+		);
+		maatregelenSnapshot.docs.forEach((doc) => {
 			console.log(doc.data());
 		});
 	});
 
 	const calculateValue = (activeValue: number, maatregel: any) => {
-        return activeValue * maatregel.minimaal * maatregel.effectPerWeek * maatregel.rondesPerJaar;
-    };
+		return activeValue * maatregel.minimaal * maatregel.effectPerWeek * maatregel.rondesPerJaar;
+	};
 
-    const calculateCost = (activeValue: number, maatregel: any) => {
-        const cost = calculateValue(activeValue, maatregel) * (maatregel.kostenPerPersoonPerDrieMaanden);
-        return cost.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR' });
-    };
+	const calculateCost = (activeValue: number, maatregel: any) => {
+		const cost = calculateValue(activeValue, maatregel) * maatregel.kostenPerPersoonPerDrieMaanden;
+		return cost.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR' });
+	};
 
 	const calculateVrijwilligers = (activeValue: number, maatregel: any) => {
 		if (activeValue === 0) {
 			return 0;
 		} else {
-			const value = Number(maatregel.minimaal) + (activeValue - 1) * (Number(maatregel.maximaal) - Number(maatregel.minimaal)) / 9;
+			const value =
+				Number(maatregel.minimaal) +
+				((activeValue - 1) * (Number(maatregel.maximaal) - Number(maatregel.minimaal))) / 9;
 			return Math.round(value * 100) / 100;
 		}
 	};
@@ -71,7 +75,7 @@
 </script>
 
 {#if active}
-	<div class="p-10 bg-yellow-100 shadow-lg flex flex-col">
+	<Card>
 		<div class="font-bold text-2xl mb-4">{active.id}</div>
 		<table class="text-left">
 			<thead>
@@ -85,22 +89,22 @@
 			</thead>
 			<tbody>
 				{#each $maatregelenStore as maatregel, i}
-				<tr>
-					<td class="px-2">{maatregel.naam.charAt(0).toUpperCase() + maatregel.naam.slice(1)}</td>
-					<td class="px-2">
-						<input
-							type="range"
-							value={active.values[i]}
-							min="0"
-							max="10"
-							class="slider accent-blue-500 align-middle appearance-none w-full cursor-pointer h-1 bg-red-500"
-							on:input={(e) => onInput(e, i)}
-						/>
-					</td>
-					<td class="px-2">{calculateValue(active.values[i], maatregel)}</td>
-					<td class="px-2">{calculateCost(active.values[i], maatregel)}</td>
-					<td class="px-2">{calculateVrijwilligers(active.values[i], maatregel)}</td>
-				{/each}
+					<tr>
+						<td class="px-2">{maatregel.naam.charAt(0).toUpperCase() + maatregel.naam.slice(1)}</td>
+						<td class="px-2">
+							<input
+								type="range"
+								value={active.values[i]}
+								min="0"
+								max="10"
+								class="slider accent-blue-500 align-middle appearance-none w-full cursor-pointer h-1 bg-red-500"
+								on:input={(e) => onInput(e, i)}
+							/>
+						</td>
+						<td class="px-2">{calculateValue(active.values[i], maatregel)}</td>
+						<td class="px-2">{calculateCost(active.values[i], maatregel)}</td>
+						<td class="px-2">{calculateVrijwilligers(active.values[i], maatregel)}</td>
+					</tr>{/each}
 			</tbody>
 		</table>
 
@@ -108,14 +112,14 @@
 			<ButtonMain
 				theme="red"
 				on:click={() => {
-					appState.set(1);
+					appState.set(2);
 				}}>Terug</ButtonMain
 			>
 			<ButtonMain
 				on:click={() => {
-					appState.set(3);
+					appState.set(4);
 				}}>Klaar</ButtonMain
 			>
 		</div>
-	</div>
+	</Card>
 {/if}
