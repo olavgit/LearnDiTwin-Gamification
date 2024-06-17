@@ -1,3 +1,3 @@
-<div class="p-10 bg-green-100 lg:max-w-[40vw] shadow-lg flex flex-col">
+<div class="p-14 bg-white shadow-lg flex flex-col">
 	<slot />
 </div>
