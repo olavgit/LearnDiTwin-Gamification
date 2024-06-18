@@ -26,7 +26,7 @@ export function calculateVrijwilligers (activeValue: number, maatregel: Maatrege
         return 0;
     } else {
         const value = Number(maatregel.minimaal) + (activeValue - 1) * (Number(maatregel.maximaal) - Number(maatregel.minimaal)) / 9;
-        return Math.round(value * 100) / 100;
+        return Math.round(value);
     }
 };
 
