@@ -1,4 +1,7 @@
 <script lang="ts">
+    import ButtonMain from '$atoms/buttons/ButtonMain.svelte';
+	import Card from '$atoms/Card.svelte';
+    import { appState } from '$store/app';
     import { doc, collection, getDocs, deleteDoc, setDoc, updateDoc, writeBatch } from 'firebase/firestore';
     import { db } from '$lib/firebase';
 
@@ -123,12 +126,13 @@
     }
 </script>
 
-<div class="flex flex-col items-center justify-center h-screen drop-shadow-xl">
+<Card>
     <input id="file-upload" class="hidden" type="file" accept="text/csv" bind:this={fileInput} on:change={handleFileChange} />
-    <label for="file-upload" class="px-4 py-2 m-2 shadow-lg text-white bg-red-600 cursor-pointer">Selecteer een bestand</label>
+    <label for="file-upload" class="my-2 bg-blue-500 text-white px-5 rounded-md py-3 cursor-pointer">Selecteer een bestand</label>
     {#if selectedFile}
-        <p class="font-bold">Geselecteerd Bestand:</p>
-        <pre>{selectedFile.name}</pre>
+        <p class="font-bold text-center">Geselecteerd Bestand:</p>
+        <pre class="text-center">{selectedFile.name}</pre>
     {/if}
-    <button class="px-4 py-2 m-2 shadow-lg text-white bg-red-600 cursor-pointer" on:click={handleImport}>Upload</button>
-</div>
+    <ButtonMain class="my-2" on:click={handleImport}>Upload</ButtonMain>
+    <ButtonMain theme="red" class="my-2" on:click={() => appState.set(0)}>Terug</ButtonMain>
+</Card>

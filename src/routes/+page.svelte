@@ -16,6 +16,8 @@
 </script>
 
 <script lang="ts">
+	import UploadCard from "$molecules/uploadCard.svelte";
+
 	const stakeholdersCollection = collection(db, 'stakeholders');
 	let rootElement: HTMLDivElement;
 
@@ -83,6 +85,9 @@
 	</div>
 	<div class="h-screen flex justify-center items-center w-screen">
 		<ResultCard />
+	</div>
+	<div class="h-screen flex justify-center items-center w-screen">
+		<UploadCard />
 	</div>
 </div>
 

@@ -7,7 +7,7 @@
 	import ButtonMain from '$atoms/buttons/ButtonMain.svelte';
 
 	import { appState } from '$store/app';
-	import { maatregelenStore } from '$store/maatregelen';
+	import { maatregelenStore, calculateCost, calculateValue, calculateVrijwilligers } from '$store/maatregelen';
 	import type { Maatregelen } from '$store/maatregelen';
 	import { stakeholderStore, activeStakeholder } from '$store/stakeholder';
 </script>
@@ -19,23 +19,6 @@
 
 		maatregelenStore.set(maatregelenSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Maatregelen[]);
 	});
-
-	const calculateValue = (activeValue: number, maatregel: Maatregelen) => {
-        return activeValue * maatregel.minimaal * maatregel.effectPerWeek * maatregel.rondesPerJaar;
-    };
-
-    const calculateCost = (activeValue: number, maatregel: Maatregelen) => {
-        return calculateValue(activeValue, maatregel) * (maatregel.kostenPerPersoonPerDrieMaanden);
-    };
-
-	const calculateVrijwilligers = (activeValue: number, maatregel: Maatregelen) => {
-		if (activeValue === 0) {
-			return 0;
-		} else {
-			const value = Number(maatregel.minimaal) + (activeValue - 1) * (Number(maatregel.maximaal) - Number(maatregel.minimaal)) / 9;
-			return Math.round(value * 100) / 100;
-		}
-	};
 
 	const onInput = (event: Event, index: number) => {
 		const target = event.target as HTMLInputElement;
@@ -69,7 +52,6 @@
 	$: totalValue = $maatregelenStore.reduce((sum, maatregel, i) => sum + calculateValue(active?.values?.[i] ?? 0, maatregel), 0);
 	$: totalCost = $maatregelenStore.reduce((sum, maatregel, i) => sum + calculateCost(active?.values?.[i] ?? 0, maatregel), 0);
 	$: totalVrijwilligers = $maatregelenStore.reduce((sum, maatregel, i) => sum + calculateVrijwilligers(active?.values?.[i] ?? 0, maatregel), 0);
-
 </script>
 
 {#if active}

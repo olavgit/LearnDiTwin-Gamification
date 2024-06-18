@@ -11,6 +11,10 @@
 	const resetFirestore = () => {
 		console.log('Hier mag de reset firestore functie');
 	};
+
+	const uploadCsv = () => {
+		console.log('Hier mag de upload csv functie');
+	};
 </script>
 
 <Card>
@@ -23,6 +27,8 @@
 	{#if settingsOpen}
 		<div>
 			<ButtonMain on:click={resetFirestore}>Reset de firestore</ButtonMain>
+			<ButtonMain on:click={() => appState.set(5)}>CSV Upload</ButtonMain>
+
 			<ButtonMain theme="red" on:click={() => (settingsOpen = !settingsOpen)}>Terug</ButtonMain>
 		</div>
 	{/if}

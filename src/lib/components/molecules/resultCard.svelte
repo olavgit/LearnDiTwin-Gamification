@@ -2,12 +2,16 @@
 	import ButtonMain from '$atoms/buttons/ButtonMain.svelte';
 	import Card from '$atoms/Card.svelte';
 
+	import { maatregelenStore, calculateCost, calculateValue, calculateVrijwilligers } from '$store/maatregelen';
 	import { appState } from '$store/app';
 	import { stakeholderStore } from '$store/stakeholder';
 </script>
 
 <script lang="ts">
 	let averages: number[] = [];
+	let totalValue = 0;
+	let totalCost = 0;
+	let totalVrijwilligers = 0;
 
 	const calculateAverages = () => {
 		let sumArray: number[] = [];
@@ -21,26 +25,39 @@
 				sumArray[index] += value;
 			});
 		});
+
 		averages = sumArray.map((sum) => sum / numStakeholders);
 	};
 
-	$: $stakeholderStore && calculateAverages();
+	const calculateTotals = () => {
+		totalValue = $maatregelenStore.reduce((sum, maatregel, i) => sum + calculateValue(averages[i] ?? 0, maatregel), 0);
+		totalCost = $maatregelenStore.reduce((sum, maatregel, i) => sum + calculateCost(averages[i] ?? 0, maatregel), 0);
+		totalVrijwilligers = $maatregelenStore.reduce((sum, maatregel, i) => sum + calculateVrijwilligers(averages[i] ?? 0, maatregel), 0);
+	};
+
+	$: if ($maatregelenStore.length && $stakeholderStore.length) {
+		calculateAverages();
+		calculateTotals();
+	}
 </script>
 
 <Card>
 	<div class="font-bold text-2xl mb-4">Resultaat</div>
 	{#each averages as average, index}
 		<div>
-			<span>Maatregel {index + 1} heeft een gemiddelde schaal van</span>
-			{average}
+			<span>{$maatregelenStore[index].naam.charAt(0).toUpperCase() + $maatregelenStore[index].naam.slice(1)} heeft een gemiddelde schaal van {average.toFixed(2)}</span>
 		</div>
 	{/each}
+	<div class="py-2">
+		<p>Geholpen mensen per jaar: {totalValue}</p>
+		<p>Kosten per jaar: {totalCost.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p>
+		<p>Aantal vrijwilligers per jaar: {totalVrijwilligers}</p>
+	</div>
 	<div>
 		<ButtonMain
 			theme="red"
 			on:click={() => {
 				appState.set(0);
-			}}>Terug</ButtonMain
-		>
+			}}>Terug</ButtonMain>	
 	</div>
 </Card>
