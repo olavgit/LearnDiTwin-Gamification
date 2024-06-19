@@ -1,19 +1,32 @@
-<script lang="ts" context="module">
+<script lang='ts' context='module'>
 	import ButtonMain from '$atoms/buttons/ButtonMain.svelte';
 	import Card from '$atoms/Card.svelte';
+	import { db } from '../../firebase';
+	import { collection, getDocs, updateDoc } from 'firebase/firestore';
 
 	import { appState } from '$store/app';
 </script>
 
-<script lang="ts">
+<script lang='ts'>
+
 	let settingsOpen = false;
 
-	const resetFirestore = () => {
-		console.log('Hier mag de reset firestore functie');
-	};
+	const resetFirestore = async () => {
+		const measuresCollection = collection(db, 'stakeholders');
+		const snapshot = await getDocs(measuresCollection);
 
-	const uploadCsv = () => {
-		console.log('Hier mag de upload csv functie');
+		let empty = [];
+		const valuesSize = snapshot.docs[0].data().values.length;
+		for (let i = 0; i < valuesSize; i++) empty.push(0);
+
+		console.log();
+		for (const stakeholderDoc of snapshot.docs) {
+			// why's my ide giving me an error here stfu
+			await updateDoc(stakeholderDoc.ref, {
+				values: empty
+			});
+		}
+		console.log('values emptied!');
 	};
 </script>
 
@@ -27,9 +40,7 @@
 	{#if settingsOpen}
 		<div>
 			<ButtonMain on:click={resetFirestore}>Reset de firestore</ButtonMain>
-			<ButtonMain on:click={() => appState.set(5)}>CSV Upload</ButtonMain>
-
-			<ButtonMain theme="red" on:click={() => (settingsOpen = !settingsOpen)}>Terug</ButtonMain>
+			<ButtonMain theme='red' on:click={() => (settingsOpen = !settingsOpen)}>Terug</ButtonMain>
 		</div>
 	{/if}
 </Card>
