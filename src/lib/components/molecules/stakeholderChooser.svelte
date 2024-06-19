@@ -33,7 +33,7 @@
 </script>
 
 <Card>
-	<div class="font-bold text-2xl mb-4">Kies je stakeholder</div>
+	<div class="font-bold text-2xl mb-4">Kies je doelgroep om te vertegenwoordigen</div>
 	<div class="flex gap-x-2">
 		{#if $loadingError}
 			<div class="text-red-500">
