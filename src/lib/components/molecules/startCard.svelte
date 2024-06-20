@@ -26,7 +26,7 @@
 				values: empty
 			});
 		}
-		console.log('values emptied!');
+		alert('Alle schalen staan weer op 0!');
 	};
 </script>
 
@@ -39,7 +39,8 @@
 	{/if}
 	{#if settingsOpen}
 		<div>
-			<ButtonMain on:click={resetFirestore}>Reset de firestore</ButtonMain>
+			<ButtonMain on:click={resetFirestore}>Reset Schalen</ButtonMain>
+			<ButtonMain on:click={() => appState.set(5)}>Upload CSV</ButtonMain>
 			<ButtonMain theme='red' on:click={() => (settingsOpen = !settingsOpen)}>Terug</ButtonMain>
 		</div>
 	{/if}

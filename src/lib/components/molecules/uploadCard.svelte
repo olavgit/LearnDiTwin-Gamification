@@ -9,6 +9,7 @@
     let fileInput: HTMLInputElement;
     let maatregelen: Array<Record<string, string>> = [];
     let budget: { maximaal: string } | null = null;
+    let doel: { maximaal: string } | null = null;
 
     function handleFileChange(e: Event) {
         const target = e.target as HTMLInputElement;
@@ -64,6 +65,7 @@
 
                 maatregelen = [];
                 budget = null;
+                doel = null;
 
                 for (let i = 1; i < lines.length; i++) {
                     const line = lines[i].split(';').map(field => field.trim().replace('/r', ''));
@@ -72,7 +74,9 @@
 
                     if (line[naamIndex].includes('budget')) {
                         budget = { maximaal: line[maximaalIndex] };
-                    } else {
+                    } else if (line[naamIndex].includes('doel')) {
+                        doel = { maximaal: line[maximaalIndex] };
+                    } else {    
                         const maatregel: Record<string, string> = {};
                         for (let j = 0; j < headers.length; j++) {
                             maatregel[headers[j]] = line[j];
@@ -102,11 +106,12 @@
     const storeFile = async () => {
         try {
             const maatregelenIds = maatregelen.map(item => item.id);
-            const querySnapshot = await getDocs(collection(db, 'maatregelen'));
+            const maatregelQuerySnapshot = await getDocs(collection(db, 'maatregelen'));
+            const doelenQuerySnapshot = await getDocs(collection(db, 'doelen'));
 
             const batch = writeBatch(db);
 
-            querySnapshot.docs.forEach((doc) => {
+            maatregelQuerySnapshot.docs.forEach((doc) => {
                 if (!maatregelenIds.includes(doc.id)) {
                     batch.delete(doc.ref);
                 }
@@ -116,6 +121,17 @@
                 const docRef = doc(db, 'maatregelen', item.id);
                 batch.set(docRef, item, { merge: true });
             });
+
+            const doelenRef = doc(db, 'doelen','taalgroeiers');
+
+            if (budget) {
+                batch.set(doelenRef, { budget: budget.maximaal }, { merge: true });
+            }
+
+            if (doel) {
+                batch.set(doelenRef, { doel: doel.maximaal }, { merge: true });
+            }   
+            
 
             await batch.commit();
             console.log('Firestore updated successfully.');
