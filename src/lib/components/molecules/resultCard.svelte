@@ -45,8 +45,9 @@
 		stakeholders.push(stakeholder)
 	});
 </script>
-<div class="flex flex-row">
     <Card>
+        <div class="flex flex-row m">
+
         <div>
             <div class="font-bold text-2xl mb-4">Resultaat</div>
             {#each averages as average, index}
@@ -67,19 +68,20 @@
 			}}>Terug</ButtonMain>
             </div>
         </div>
-    </Card>
-    	<div class="bg-white">
-    		{#each stakeholders as stakeholder}
-                <div  class="border-2 rounded m-2">
-    		<p class="border-y-2">
-                Team: <b>{stakeholder.id}</b> heeft het volgende gestemd:
-    		        </p>
+            <div class="grid grid-cols-2 justify-between">
+                {#each stakeholders as stakeholder}
+                    <div  class="border-2 rounded m-2">
+                        <p class="border-y-2">
+                            Team: <b>{stakeholder.id}</b> heeft het volgende gestemd:
+                        </p>
                         {#each stakeholder.values as value, index}
-                            <p>{$maatregelenStore[index].naam.charAt(0).toUpperCase() + $maatregelenStore[index].naam.slice(1)}: {value}
+                            <p>{$maatregelenStore[index].naam.charAt(0).toUpperCase() + $maatregelenStore[index].naam.slice(1)}: {value}</p>
                         {/each}
-                </div>
+                    </div>
                 {/each}
+            </div>
 
-    	</div>
-</div>
+        </div>
+    </Card>
+
 
