@@ -1,4 +1,4 @@
 <script>
-    export let popupMessage = "default message";
+    export let message = 'Hi';
 </script>
-<p>{popupMessage}</p>
+<p>{message}</p>

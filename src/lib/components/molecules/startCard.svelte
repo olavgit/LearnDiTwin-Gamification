@@ -7,6 +7,7 @@
 	import Popup from '../atoms/popup.svelte';
 	import Modal from 'svelte-simple-modal';
 	import { appState } from '$store/app';
+	import {bind} from "svelte-simple-modal";
 </script>
 
 <script lang='ts'>
@@ -20,6 +21,7 @@
 	const resetFirestore = async () => {
 		const measuresCollection = collection(db, 'stakeholders');
 		const snapshot = await getDocs(measuresCollection);
+		let popupMessage;
 		try{
 			let empty = [];
 			const valuesSize = snapshot.docs[0].data().values.length;
@@ -31,10 +33,12 @@
 					values: empty
 				});
 			}
-			modal.set(Popup)
+			popupMessage = "Reset succesvol!"
 		}catch (error){
-			modal.set(Popup)
+			popupMessage = "Reset gefaald! Voor meer informatie raadpleeg de developer console."
+			console.log(error)
 		}
+		modal.set(bind(Popup, { message: popupMessage }));
 	};
 </script>
 
@@ -49,7 +53,7 @@
 	{/if}
 	{#if settingsOpen}
 		<div>
-			<ButtonMain on:click={resetFirestore}>Reset de firestore</ButtonMain>
+			<ButtonMain on:click={resetFirestore}>Reset alle waarden</ButtonMain>
 			<ButtonMain theme='red' on:click={() => (settingsOpen = !settingsOpen)}>Terug</ButtonMain>
 		</div>
 	{/if}
