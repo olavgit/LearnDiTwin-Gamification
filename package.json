@@ -39,6 +39,7 @@
 	"type": "module",
 	"dependencies": {
 		"firebase": "^10.12.2",
-		"gsap": "^3.12.5"
+		"gsap": "^3.12.5",
+		"svelte-simple-modal": "^1.6.2"
 	}
 }
