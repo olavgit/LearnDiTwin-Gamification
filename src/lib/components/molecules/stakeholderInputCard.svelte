@@ -1,24 +1,30 @@
 <script lang="ts" context="module">
 	import { db } from '$lib/firebase';
-	import { collection, doc, getDoc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
+	import { collection, doc, getDoc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
 	import { onMount } from 'svelte';
-
 
 	import ButtonMain from '$atoms/buttons/ButtonMain.svelte';
 
 	import { appState } from '$store/app';
 	import { maatregelenStore, calculateCost, calculateValue, calculateVrijwilligers } from '$store/maatregelen';
 	import type { Maatregelen } from '$store/maatregelen';
+	import { doelenStore } from '$store/doelen';
 	import { stakeholderStore, activeStakeholder } from '$store/stakeholder';
 </script>
 
 <script lang="ts">
-	onMount(async () => {
-		const maatregelenCollection = collection(db, 'maatregelen');
-		const maatregelenSnapshot = await getDocs(maatregelenCollection);
+	onMount(() => {
+        const maatregelenCollection = collection(db, 'maatregelen');
+        const doelenCollection = collection(db, 'doelen');
 
-		maatregelenStore.set(maatregelenSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Maatregelen[]);
-	});
+        onSnapshot(maatregelenCollection, (snapshot) => {
+            maatregelenStore.set(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Maatregelen[]);
+        });
+
+        onSnapshot(doelenCollection, (snapshot) => {
+            doelenStore.set(snapshot.docs.map(doc => ({ doel: Number(doc.data().doel), budget: Number(doc.data().budget), ...doc.data()})));
+        });
+    });
 
 	const onInput = (event: Event, index: number) => {
 		const target = event.target as HTMLInputElement;
@@ -52,6 +58,8 @@
 	$: totalValue = $maatregelenStore.reduce((sum, maatregel, i) => sum + calculateValue(active?.values?.[i] ?? 0, maatregel), 0);
 	$: totalCost = $maatregelenStore.reduce((sum, maatregel, i) => sum + calculateCost(active?.values?.[i] ?? 0, maatregel), 0);
 	$: totalVrijwilligers = $maatregelenStore.reduce((sum, maatregel, i) => sum + calculateVrijwilligers(active?.values?.[i] ?? 0, maatregel), 0);
+	$: percentageDoel = totalValue / $doelenStore[0]?.doel * 100;
+	$: percentageBudget = totalCost / $doelenStore[0]?.budget * 100;
 </script>
 
 {#if active}
@@ -93,6 +101,14 @@
                     <td class="px-2 py-1">{totalCost.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR',  minimumFractionDigits: 0, maximumFractionDigits: 0 })}</td>
                     <td class="px-2 py-1">{totalVrijwilligers}</td>
                 </tr>
+				<tr>
+					<td class="px-2 py-1"></td>
+                    <td class="px-2 py-1"></td>
+                    <td class="px-2 py-1" class:bg-green-300={percentageDoel >= 100}>{percentageDoel.toFixed(0)}% van het doel</td>
+					<td class="px-2 py-1" class:bg-red-300={percentageBudget > 100}>{percentageBudget.toFixed(0)}% van het budget</td>
+					<td class="px-2 py-1"></td>
+
+				</tr>
 			</tbody>
 		</table>
 

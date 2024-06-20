@@ -3,48 +3,34 @@
 	import Card from '$atoms/Card.svelte';
 	import { db } from '../../firebase';
 	import { collection, getDocs, updateDoc } from 'firebase/firestore';
-	import { writable } from 'svelte/store';
-	import Popup from '../atoms/popup.svelte';
-	import Modal from 'svelte-simple-modal';
+
 	import { appState } from '$store/app';
-	import {bind} from "svelte-simple-modal";
 </script>
 
 <script lang='ts'>
+
 	let settingsOpen = false;
-
-
-
-	const modal = writable(null);
-
 
 	const resetFirestore = async () => {
 		const measuresCollection = collection(db, 'stakeholders');
 		const snapshot = await getDocs(measuresCollection);
-		let popupMessage;
-		try{
-			let empty = [];
-			const valuesSize = snapshot.docs[0].data().values.length;
-			for (let i = 0; i < valuesSize; i++) empty.push(0);
 
-			for (const stakeholderDoc of snapshot.docs) {
-				// why's my ide giving me an error here stfu
-				await updateDoc(stakeholderDoc.ref, {
-					values: empty
-				});
-			}
-			popupMessage = "Reset succesvol!"
-		}catch (error){
-			popupMessage = "Reset gefaald! Voor meer informatie raadpleeg de developer console."
-			console.log(error)
+		let empty = [];
+		const valuesSize = snapshot.docs[0].data().values.length;
+		for (let i = 0; i < valuesSize; i++) empty.push(0);
+
+		console.log();
+		for (const stakeholderDoc of snapshot.docs) {
+			// why's my ide giving me an error here stfu
+			await updateDoc(stakeholderDoc.ref, {
+				values: empty
+			});
 		}
-		modal.set(bind(Popup, { message: popupMessage }));
+		alert('Alle schalen staan weer op 0!');
 	};
 </script>
 
 <Card>
-	<Modal show={$modal}>
-	</Modal>
 	{#if !settingsOpen}
 		<div>
 			<ButtonMain on:click={() => appState.set(1)}>Start</ButtonMain>
@@ -53,7 +39,8 @@
 	{/if}
 	{#if settingsOpen}
 		<div>
-			<ButtonMain on:click={resetFirestore}>Reset alle waarden</ButtonMain>
+			<ButtonMain on:click={resetFirestore}>Reset Schalen</ButtonMain>
+			<ButtonMain on:click={() => appState.set(5)}>Upload CSV</ButtonMain>
 			<ButtonMain theme='red' on:click={() => (settingsOpen = !settingsOpen)}>Terug</ButtonMain>
 		</div>
 	{/if}
