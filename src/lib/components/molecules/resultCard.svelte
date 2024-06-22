@@ -12,8 +12,8 @@
 	let totalValue = 0;
 	let totalCost = 0;
 	let totalVrijwilligers = 0;
-
-	const calculateAverages = () => {
+    let stakeholders = [];
+    const calculateAverages = () => {
 		let sumArray: number[] = [];
 		let numStakeholders = $stakeholderStore.length;
 
@@ -35,15 +35,22 @@
 		totalVrijwilligers = $maatregelenStore.reduce((sum, maatregel, i) => sum + calculateVrijwilligers(averages[i] ?? 0, maatregel), 0);
 	};
 
+    const getStakeholders = () => {
+        stakeholders = [];
+        $stakeholderStore.forEach((stakeholder) => {
+            stakeholders.push(stakeholder)
+        });
+
+    }
+
 	$: if ($maatregelenStore.length && $stakeholderStore.length) {
 		calculateAverages();
 		calculateTotals();
-	}
+        getStakeholders();
+    }
 
-	const stakeholders = [];
-	$stakeholderStore.forEach((stakeholder) => {
-		stakeholders.push(stakeholder)
-	});
+
+
 </script>
     <Card>
         <div class="flex flex-row m">
