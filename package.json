@@ -38,6 +38,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@svelte-plugins/tooltips": "^3.0.1",
 		"firebase": "^10.12.2",
 		"gsap": "^3.12.5",
 		"svelte-simple-modal": "^1.6.2"

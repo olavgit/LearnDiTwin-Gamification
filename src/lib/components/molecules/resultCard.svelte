@@ -1,6 +1,7 @@
 <script lang="ts" context="module">
     import ButtonMain from '$atoms/buttons/ButtonMain.svelte';
     import Card from '$atoms/Card.svelte';
+    import { Tooltip, tooltip } from '@svelte-plugins/tooltips';
 
     import {maatregelenStore, calculateCost, calculateValue, calculateVrijwilligers} from '$store/maatregelen';
     import {appState} from '$store/app';
@@ -14,6 +15,13 @@
     let totalCost = 0;
     let totalVrijwilligers = 0;
     let stakeholders = [];
+
+    let autoHideTooltip = true;
+
+    setTimeout(() => {
+        autoHideTooltip = false;
+    }, 5000);
+
     const calculateAverages = () => {
         let sumArray: number[] = [];
         let numStakeholders = $stakeholderStore.length;
@@ -104,7 +112,12 @@
                                 : {value}</p>
                         {/each}
                     {/if}
-                    sentiment: {#if calculateSentiment(stakeholder)> sentimentMarge || calculateSentiment(stakeholder) < -sentimentMarge}
+
+                    <Tooltip
+                            content="In hoeverre de keuze van de vertegenwoordiger uitwijkt van het gemiddelde."
+                            action="click"
+                    ><u>Sentiment:</u></Tooltip
+                    > {#if calculateSentiment(stakeholder)> sentimentMarge || calculateSentiment(stakeholder) < -sentimentMarge}
                     :(
                     {:else if calculateSentiment(stakeholder) === sentimentMarge || calculateSentiment(stakeholder) === -sentimentMarge}
                     :|
@@ -113,6 +126,9 @@
                     {/if}
                 </div>
             {/each}
+        </div>
+        <div class="example">
+
         </div>
     </div>
 </Card>
