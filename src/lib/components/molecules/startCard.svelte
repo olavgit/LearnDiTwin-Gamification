@@ -23,7 +23,7 @@
 		  values: empty
 		});
 	  }
-	  alert('Alle schalen staan weer op 0!');
+	  alert('Alle sliders zijn gereset!');
 	};
   </script>
 	
@@ -81,7 +81,7 @@
 	{#if !settingsOpen}
 	  <div class="lg:max-w-[400px] text-center">
 		<p class="text-center welcome-text">
-		  Welkom bij de BOB-Game! <!-- Dikgedrukte welkomsttekst -->
+		  Welkom bij de BOB-Game! 
 		</p>
 		<p class="text-center">
 		  Hier zul je op basis van je eigen aangewezen rol meedenken over een probleem en samen met je medespelers tot een besluit komen over welke maatregelen genomen moeten worden.
@@ -94,7 +94,7 @@
 	{/if}
 	{#if settingsOpen}
 	  <div class="button-container">
-		<ButtonMain on:click={resetFirestore}>Reset Schalen</ButtonMain>
+		<ButtonMain on:click={resetFirestore}>Reset sliders</ButtonMain>
 		<ButtonMain on:click={() => appState.set(5)}>Upload CSV</ButtonMain>
 		<ButtonMain theme='red' on:click={() => (settingsOpen = !settingsOpen)}>Terug</ButtonMain>
 	  </div>
