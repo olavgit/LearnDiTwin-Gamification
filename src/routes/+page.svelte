@@ -16,7 +16,7 @@
 </script>
 
 <script lang="ts">
-	import UploadCard from "$molecules/uploadCard.svelte";
+	import UploadCard from '$molecules/uploadCard.svelte';
 
 	const stakeholdersCollection = collection(db, 'stakeholders');
 	let rootElement: HTMLDivElement;
@@ -93,7 +93,7 @@
 
 <style lang="postcss">
 	.module-page {
-		background-image: url('/cork.jpg');
+		background-image: url('/cork.webp');
 		background-position: center;
 		background-size: contain;
 		background-repeat: repeat;
