@@ -82,7 +82,7 @@
                 </div>
             {/each}
             <div class="py-2">
-                <p> Geholpen mensen per jaar: {totalValue}</p>
+                <p>Geholpen mensen per jaar: {totalValue}</p>
                 <p>Kosten per jaar: {totalCost.toLocaleString('nl-NL', {
                     style: 'currency',
                     currency: 'EUR',

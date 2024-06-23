@@ -94,7 +94,7 @@
 	{/if}
 	{#if settingsOpen}
 	  <div class="button-container">
-		<ButtonMain on:click={resetFirestore}>Reset Schalen</ButtonMain>
+		<ButtonMain on:click={resetFirestore}>Reset sliders</ButtonMain>
 		<ButtonMain on:click={() => appState.set(5)}>Upload CSV</ButtonMain>
 		<ButtonMain theme='red' on:click={() => (settingsOpen = !settingsOpen)}>Terug</ButtonMain>
 	  </div>
