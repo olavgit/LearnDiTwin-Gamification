@@ -35,7 +35,7 @@
 
 <Card>
 	<div class="font-bold text-xl mb-4">Selecteer de rol die je vertegenwoordigd</div>
-	<div class="flex gap-x-2">
+	<div class="flex gap-x-2 mb-2">
 		{#if $loadingError}
 			<p class="text-red-500">Er is iets misgegaan bij het ophalen van de data.</p>
 		{:else if $stakeholderStore.length === 0}
@@ -51,6 +51,8 @@
 				{s.id}
 			</ButtonMain>
 		{/each}
+	</div>
+	<div>
 		<ButtonMain
 			theme="red"
 			on:click={() => {

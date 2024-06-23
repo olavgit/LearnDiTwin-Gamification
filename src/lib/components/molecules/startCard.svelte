@@ -33,7 +33,7 @@
 	<img src="/bob-logo.png" alt="Logo van de BOB-Game" class="w-48" />
 	{#if !settingsOpen}
 		<div class="text-center">
-			<p class="font-bold text-xl mb-2">Welkom bij de BOB-Game!</p>
+			<h1 class="font-bold text-xl mb-2">Welkom bij de BOB-Game!</h1>
 			<p class="mb-4">
 				Hier zul je op basis van je eigen aangewezen rol meedenken over een probleem en samen met je
 				medespelers tot een besluit komen over welke maatregelen genomen moeten worden.

@@ -7,9 +7,9 @@
 </script>
 
 {#if $activeStakeholder}
-	<Card>
-		<h2 class="font-bold text-2xl">{$activeStakeholder.id}</h2>
-		<p class="lg:max-w-[400px]">
+	<Card class="lg:w-[540px]">
+		<h2 class="font-bold text-xl mb-2">{$activeStakeholder.id}</h2>
+		<p class="mb-4">
 			{$activeStakeholder.description}
 		</p>
 		<div class="flex gap-x-2">
@@ -22,7 +22,7 @@
 			<ButtonMain
 				on:click={() => {
 					appState.set(3);
-				}}>Klaar</ButtonMain
+				}}>Volgende</ButtonMain
 			>
 		</div>
 	</Card>
