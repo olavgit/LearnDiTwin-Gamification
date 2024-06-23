@@ -5,6 +5,7 @@
 	import { collection, getDocs, updateDoc } from 'firebase/firestore';
 
 	import { appState } from '$store/app';
+	import logo from '/src/lib/assets/bob_game_logo.png'
 </script>
 
 <script lang='ts'>
@@ -32,7 +33,13 @@
 
 <Card>
 	{#if !settingsOpen}
-		<div>
+		<div class="lg:max-w-[400px] text-center" >
+
+			<p>
+				<img src={logo} alt="bob game logo" width="200"  class="mx-auto">
+
+				Welkom in de BOB-Game! Hier zul je op basis van je eigen aangewezen rol meedenken over een probleem en en samen met je medespelers tot een besluit komen over welke maatregelen genomen moeten worden.
+			</p>
 			<ButtonMain on:click={() => appState.set(1)}>Start</ButtonMain>
 			<ButtonMain on:click={() => (settingsOpen = !settingsOpen)}>Instellingen</ButtonMain>
 		</div>
