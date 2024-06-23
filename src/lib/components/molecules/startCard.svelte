@@ -4,6 +4,7 @@
 
 	import ButtonMain from '$atoms/buttons/ButtonMain.svelte';
 	import Card from '$atoms/Card.svelte';
+	import bobLogo from '$assets/logo/bob-logo.png';
 
 	import { appState } from '$store/app';
 </script>
@@ -30,7 +31,7 @@
 </script>
 
 <Card class="gap-y-4 lg:w-[540px] items-center">
-	<img src="/bob-logo.png" alt="Logo van de BOB-Game" class="w-48" />
+	<img src={bobLogo} alt="Logo van de BOB-Game" class="w-48" />
 	{#if !settingsOpen}
 		<div class="text-center">
 			<h1 class="font-bold text-xl mb-2">Welkom bij de BOB-Game!</h1>
