@@ -42,7 +42,7 @@
 				{/each}
 
 				<Tooltip
-					content="In hoeverre de keuze van de vertegenwoordiger uitwijkt van het gemiddelde."
+					content="Het sentiment geeft aan hoe een vertegenwoordiger zich voelt over de gemaakte keuzes."
 					action="click"><u>Sentiment:</u></Tooltip
 				>
 				{#if calculateSentiment(stakeholder.values) > sentimentMarge || calculateSentiment(stakeholder.values) < -sentimentMarge}

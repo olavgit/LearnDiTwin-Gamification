@@ -25,7 +25,7 @@
 			});
 		}
 
-		alert('Alle schalen staan weer op 0!');
+		alert('Alle sliders zijn gereset!');
 	};
 </script>
 
@@ -48,7 +48,7 @@
 		<div class="text-center">
 			<p class="font-bold text-xl mb-4">Instellingen</p>
 			<div class="flex gap-x-2 justify-center">
-				<ButtonMain on:click={resetFirestore}>Reset schalen</ButtonMain>
+				<ButtonMain on:click={resetFirestore}>Reset sliders</ButtonMain>
 				<ButtonMain on:click={() => appState.set(5)}>Wijzig brondata (.csv)</ButtonMain>
 				<ButtonMain theme="red" on:click={() => (settingsOpen = !settingsOpen)}>Terug</ButtonMain>
 			</div>
