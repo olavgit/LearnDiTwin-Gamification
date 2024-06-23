@@ -82,7 +82,7 @@
                 </div>
             {/each}
             <div class="py-2">
-                <p>Geholpen mensen per jaar: {totalValue}</p>
+                <p> Geholpen mensen per jaar: {totalValue}</p>
                 <p>Kosten per jaar: {totalCost.toLocaleString('nl-NL', {
                     style: 'currency',
                     currency: 'EUR',
@@ -114,7 +114,7 @@
                     {/if}
 
                     <Tooltip
-                            content="In hoeverre de keuze van de vertegenwoordiger uitwijkt van het gemiddelde."
+                            content="Het sentiment geeft aan hoe een vertegenwoordiger zich voelt over de gemaakte keuzes."
                             action="click"
                     ><u>Sentiment:</u></Tooltip
                     > {#if calculateSentiment(stakeholder)> sentimentMarge || calculateSentiment(stakeholder) < -sentimentMarge}
