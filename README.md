@@ -8,7 +8,6 @@ Dit project is gehost op gh-pages. Om een versie te deployen moet je de volgende
 
 - Clone het project.
 - run `npm i`
-- run `npm run build`
 - run `npm run deploy`
 
 ## Lokaal opstarten
