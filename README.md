@@ -1,6 +1,6 @@
 # Bob game
 
-Dit is de repository voor de bob-game, gehost op https://olavgit.github.io/LearnDiTwin-Gamification/.
+Dit is de repository voor de BOB-game, gehost op https://olavgit.github.io/LearnDiTwin-Gamification/.
 
 ## Deployment via gh-pages
 
