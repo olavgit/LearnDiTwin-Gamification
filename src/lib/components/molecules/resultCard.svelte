@@ -1,6 +1,7 @@
 <script lang="ts" context="module">
 	import ButtonMain from '$atoms/buttons/ButtonMain.svelte';
 	import Card from '$atoms/Card.svelte';
+	import ResultOverview from './resultOverview.svelte';
 
 	import {
 		maatregelenStore,
@@ -8,14 +9,11 @@
 		calculateValue,
 		calculateVrijwilligers
 	} from '$store/maatregelen';
-	import { appState } from '$store/app';
+	import { appState, resultsPerTeamOpen } from '$store/app';
 	import { stakeholderStore } from '$store/stakeholder';
 </script>
 
 <script lang="ts">
-	import ResultOverview from './resultOverview.svelte';
-	let overviewVisible = false;
-
 	let averages: number[] = [];
 	let totalValue = 0;
 	let totalCost = 0;
@@ -113,11 +111,11 @@
 			}}
 			>Terug
 		</ButtonMain>
-		<ButtonMain on:click={() => (overviewVisible = !overviewVisible)}
+		<ButtonMain on:click={() => resultsPerTeamOpen.set(!$resultsPerTeamOpen)}
 			>Resultaten per team</ButtonMain
 		>
 	</div>
 </Card>
-{#if overviewVisible}
+{#if $resultsPerTeamOpen}
 	<ResultOverview {averages} />
 {/if}
