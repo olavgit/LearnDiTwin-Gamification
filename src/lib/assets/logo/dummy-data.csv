@@ -1,0 +1,8 @@
+id;naam;minimaal;maximaal;effectPerWeek;kostenPerUur;geholpenUurPerWeek;hulpduurInWeken;rondesPerJaar;kostenPerPersoonPerDrieMaanden
+1;taalbrigade;10;100;5;15;1;12;4;180
+2;online;25;250;5;50;3;12;4;400
+3;groepsbijeenkomst;5;50;15;75;2;8;6;600
+4;camouflage les;10;100;3;20;1;12;4;200
+5;bijles;5;20;6;10;2;12;4;100
+6;budget;;4000000;;;;;;
+7;doel;;4500;;;;;;
