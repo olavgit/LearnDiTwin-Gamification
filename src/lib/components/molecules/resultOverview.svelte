@@ -83,13 +83,14 @@
 					content="Het sentiment geeft aan hoe een vertegenwoordiger zich voelt over de gemaakte keuzes."
 					action="click"><u>Sentiment:</u></Tooltip
 				>
-				{#if calculateSentiment(stakeholder.values) > sentimentMarge || calculateSentiment(stakeholder.values) < -sentimentMarge}
+				{calculateSentiment(stakeholder.values)}
+				<!-- {#if calculateSentiment(stakeholder.values) > sentimentMarge || calculateSentiment(stakeholder.values) < -sentimentMarge}
 					:(
 				{:else if calculateSentiment(stakeholder.values) === sentimentMarge || calculateSentiment(stakeholder.values) === -sentimentMarge}
 					:|
 				{:else}
 					:)
-				{/if}
+				{/if} -->
 			</div>
 		{/each}
 	</div>
