@@ -107,7 +107,7 @@
 		<ButtonMain
 			theme="red"
 			on:click={() => {
-				appState.set(0);
+				appState.set(3);
 			}}
 			>Terug
 		</ButtonMain>
