@@ -9,6 +9,7 @@
 
 <script lang="ts">
 	import ButtonMain from '$atoms/buttons/ButtonMain.svelte';
+	import { TEXT } from '$assets/text';
 
 	export let averages: number[] = [];
 
@@ -65,7 +66,8 @@
 </script>
 
 <div class="p-14 bg-white shadow-lg items-start absolute flex flex-col" in:gsapIn out:gsapOut>
-	<p class="font-bold text-xl mb-2">Resultaten per team</p>
+	<p class="font-bold text-xl">{TEXT.resultaat_per_team_titel}</p>
+	<p class="mb-6">{TEXT.resultaat_per_team_beschrijving}</p>
 
 	<div class="grid grid-cols-2 gap-4 mb-4">
 		{#each $stakeholderStore as stakeholder}

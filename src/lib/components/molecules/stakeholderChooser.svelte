@@ -8,6 +8,7 @@
 
 	import { appState } from '$store/app';
 	import { activeStakeholder, stakeholderStore } from '$store/stakeholder';
+	import { TEXT } from '$assets/text';
 </script>
 
 <script>
@@ -34,7 +35,10 @@
 </script>
 
 <Card>
-	<div class="font-bold text-xl mb-4">Selecteer de rol die je vertegenwoordigd</div>
+	<div class="font-bold text-xl">{TEXT.keuze_titel}</div>
+	<p class="mb-6">
+		{TEXT.keuze_beschrijving}
+	</p>
 	<div class="flex gap-x-2 mb-2">
 		{#if $loadingError}
 			<p class="text-red-500">Er is iets misgegaan bij het ophalen van de data.</p>

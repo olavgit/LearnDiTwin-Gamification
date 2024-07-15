@@ -7,6 +7,7 @@
 	import bobLogo from '$assets/logo/bob-logo.png';
 
 	import { appState } from '$store/app';
+	import { TEXT } from '$assets/text';
 </script>
 
 <script lang="ts">
@@ -34,13 +35,15 @@
 	<img src={bobLogo} alt="Logo van de BOB-Game" class="w-48" />
 	{#if !settingsOpen}
 		<div class="text-center">
-			<h1 class="font-bold text-xl mb-2">Welkom bij de BOB-Game!</h1>
+			<h1 class="font-bold text-xl mb-2">{TEXT.start_titel}</h1>
 			<p class="mb-4">
-				Hier zul je op basis van je eigen aangewezen rol meedenken over een probleem en samen met je
-				medespelers tot een besluit komen over welke maatregelen genomen moeten worden.
+				{TEXT.start_beschrijving}
 			</p>
 			<div class="flex gap-x-2 justify-center">
 				<ButtonMain theme="green" on:click={() => appState.set(1)}>Start</ButtonMain>
+				<ButtonMain href="https://photos.app.goo.gl/aDYZgySVrSQGbZKG9" target="_blank"
+					>Achtergrond informatie</ButtonMain
+				>
 				<ButtonMain on:click={() => (settingsOpen = !settingsOpen)}>Instellingen</ButtonMain>
 			</div>
 		</div>

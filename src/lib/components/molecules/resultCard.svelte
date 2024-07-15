@@ -11,6 +11,7 @@
 	} from '$store/maatregelen';
 	import { appState, resultsPerTeamOpen } from '$store/app';
 	import { stakeholderStore } from '$store/stakeholder';
+	import { TEXT } from '$assets/text';
 </script>
 
 <script lang="ts">
@@ -66,7 +67,10 @@
 </script>
 
 <Card class="items-start">
-	<div class="font-bold text-2xl mb-4">Resultaat</div>
+	<div class="font-bold text-2xl">{TEXT.resultaat_titel}</div>
+	<p class="mb-6">
+		{TEXT.resultaat_beschrijving}
+	</p>
 	<table class="mb-4">
 		<tr>
 			<td class="font-bold pr-4">Maatregel</td>

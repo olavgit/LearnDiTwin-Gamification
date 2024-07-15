@@ -16,6 +16,7 @@
 	import type { Maatregelen } from '$store/maatregelen';
 	import { doelenStore } from '$store/doelen';
 	import { stakeholderStore, activeStakeholder } from '$store/stakeholder';
+	import { TEXT } from '$assets/text';
 </script>
 
 <script lang="ts">
@@ -87,7 +88,10 @@
 
 {#if active}
 	<Card class="lg:w-4/5">
-		<div class="font-bold text-2xl mb-4">Team {active.id}</div>
+		<div class="font-bold text-2xl">Team {active.id}</div>
+		<p class="mb-6">
+			{TEXT.stakeholder_beschrijving}
+		</p>
 		<table class="text-left mb-2">
 			<thead>
 				<tr>
