@@ -13,17 +13,20 @@
 
 	export let averages: number[] = [];
 
-	const sentimentMarge = 1;
-
 	const calculateSentiment = (stakeholderVals: number[]) => {
-		const deviations = [];
-		for (let i = 0; i < averages.length; i++) {
-			const deviation = averages[i] - stakeholderVals[i];
-			deviations.push(deviation);
-		}
-		const sumOfDeviations = deviations.reduce((partialSum, a) => partialSum + a, 0);
-		const averageDeviation = sumOfDeviations / deviations.length;
-		return averageDeviation;
+        const deviations = [];
+        for (let i = 0; i < averages.length; i++) {
+            const deviation = Math.abs(averages[i] - stakeholderVals[i]);
+            deviations.push(deviation);
+        }
+        const sumOfDeviations = deviations.reduce((partialSum, a) => partialSum + a, 0);
+        const averageDeviation = sumOfDeviations / (deviations.length);
+
+        const maxDeviation = 10;
+        let score = 10 - (averageDeviation / maxDeviation * 9);
+        score = Math.max(1, Math.min(score, 10));
+
+        return score;
 	};
 
 	function gsapIn(node: HTMLElement) {
@@ -80,19 +83,14 @@
 						{$maatregelenStore[index].naam}: {value}
 					</p>
 				{/each}
-
-				<Tooltip
-					content="Het sentiment geeft aan hoe een vertegenwoordiger zich voelt over de gemaakte keuzes."
-					action="click"><u>Sentiment:</u></Tooltip
-				>
-				{calculateSentiment(stakeholder.values)}
-				<!-- {#if calculateSentiment(stakeholder.values) > sentimentMarge || calculateSentiment(stakeholder.values) < -sentimentMarge}
-					:(
-				{:else if calculateSentiment(stakeholder.values) === sentimentMarge || calculateSentiment(stakeholder.values) === -sentimentMarge}
-					:|
-				{:else}
-					:)
-				{/if} -->
+				<p 	
+					class:bg-red-300={calculateSentiment(stakeholder.values) < 8}
+					class:bg-green-300={calculateSentiment(stakeholder.values) >= 8}>
+						<Tooltip
+							content="Het sentiment geeft aan hoe een vertegenwoordiger zich voelt over de gemaakte keuzes. "
+							action="click"><u>Sentiment:</u></Tooltip>
+						{calculateSentiment(stakeholder.values).toFixed(2)}
+				</p>
 			</div>
 		{/each}
 	</div>
