@@ -1,12 +1,12 @@
 export const TEXT = {
 	start_titel: 'Welkom bij de BOB-Game!',
 	start_beschrijving:
-		'Hier zul je op basis van je eigen aangewezen rol meedenken over een probleem en samen met je medespelers tot een besluit komen over welke maatregelen genomen moeten worden.',
-	keuze_titel: 'Selecteer de rol die je vertegenwoordigd',
-	keuze_beschrijving: 'Kies de rol die je wilt vertegenwoordigen in de BOB-Game',
-	stakeholder_beschrijving: 'Lorem ipsum dolar sit amet',
+		'Hier zul je op basis van je eigen aangewezen rol meedenken over een maatschappelijk probleem. In deze versie van het spel staat het thema "Laaggeletterdheid" of "Taalgroei" in de gemeente Nieuwegein centraal. Door achterstand bij lezen en rekenen onstaan veel problemen zoals armoede, eenzaamheid en lage gezondheid. Welke mix van maatregelen kan dit oplossen? Er zijn vier betrokken partijen: gemeente, vrijwilligers, taalgroeiers en de bibliotheek. Je wordt gevraagd een van de vier partijen te vertegenwoordigen bij het kiezen van een mix van maatregelen. Daarna ga je met de andere partijen in overleg.'
+	keuze_titel: 'Welke partij ga jij of je team vertegenwoordigen',
+	keuze_beschrijving: 'Kies de rol die je gaat vertegenwoordigen in de BOB-Game. BOB staat in dit geval voor "Beeldvorming, Opinie en Besluit". Dit zijn de vier stappen die jullie gaan doorlopen in dit spel',
+	stakeholder_beschrijving: 'Alle partijen kunnen kiezen uit het, op een schaal van 0 (niet) tot 10 (maximaal), inzetten van onderstaande vijf maatregelen. Aan elke maatregel zijn kosten verbonden, vereisen de inzet van een aantal vrijwilligers en leveren een resultaat op. Het doel is om 5000 mensen te helpen in een jaar tijd, met een jaarbudget van maximaal 2 miljoen euro. In de "Totaal" regel zie je de baten en kosten van je keuzes direct terug. Kies de maatregelen die vanuit jouw rol het beste zijn. Tav de maatregelen: "De taalbrigade" is een lesprogramma met vrijwilligers in kleine groepen, "Online" is een online lesprogramma voor thuis, "Groepsbijeenkomsten" zijn klassikale lessen bij de bibliotheek, "Camouflage lessen" zijn kooklessen, naailessen e.d. waarbij taal en rekenen op indirecte manier verbeterd wordt, en "Bijles" zijn 1 op 1 bijlessen van vrijwilligers.',
 	resultaat_titel: 'Resultaat',
-	resultaat_beschrijving: 'Lorem ipsum dolar sit amet',
+	resultaat_beschrijving: 'Hieronder zie je de keuzes van de vier partijen, opgeteld en gedeeld door vier, zodat je kunt vergelijken wat de voorkeur van jou partij is ten opzichte van het gemiddeld van alle partijen',
 	resultaat_per_team_titel: 'Resultaten per team',
-	resultaat_per_team_beschrijving: 'Lorem ipsum dolar sit amet'
+	resultaat_per_team_beschrijving: 'Hieronder zie je wat de vier partijen hebben ingevuld. Daarbij zie je ook het "Sentiment". De sentiment score geeft aan in welke mate de teamscore afwijkt van het gemiddelde. Bij een score van 0 wijkt de teamscore heel veel af van het gemiddelde, en zijn de teamleden bedroefd. Bij een score van 10 is de teamscore exact gelijk aan het gemiddelde, en zijn de teamleden blij. Het doel is mede om er voor te zorgen dat het sentiment van alle teams boven de 8 komt. Dus probeer, door met andere teams te overleggen, de inzet van maatregelen minder verschillend te maken, zodat het sentiment, en daarmee het draagvlak, voor alle teams verbeterd! En dat dan ook nog eens binnen budget, en met voldoende effect. Dat is de uitdaging voor alle maatschappelijke thema's'
 };
