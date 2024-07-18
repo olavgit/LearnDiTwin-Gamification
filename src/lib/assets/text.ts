@@ -1,5 +1,5 @@
 export const TEXT = {
-	start_titel: 'Welkom bij de BOB-Game!',
+	start_titel: 'Welkom bij de BOB-Game! Het spel voor het oplossen van maatschappelijke thema's',
 	start_beschrijving:
 		'Hier zul je op basis van je eigen aangewezen rol meedenken over een maatschappelijk probleem. In deze versie van het spel staat het thema "Laaggeletterdheid" of "Taalgroei" in de gemeente Nieuwegein centraal. Door achterstand bij lezen en rekenen onstaan veel problemen zoals armoede, eenzaamheid en lage gezondheid. Welke mix van maatregelen kan dit oplossen? Er zijn vier betrokken partijen: gemeente, vrijwilligers, taalgroeiers en de bibliotheek. Je wordt gevraagd een van de vier partijen te vertegenwoordigen bij het kiezen van een mix van maatregelen. Daarna ga je met de andere partijen in overleg.'
 	keuze_titel: 'Welke partij ga jij of je team vertegenwoordigen',
